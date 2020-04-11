@@ -1,0 +1,24 @@
+package com.tezbus.backend.repository;
+
+import com.tezbus.backend.entity.Address;
+import com.tezbus.backend.entity.Trip;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.time.ZonedDateTime;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+public interface TripRepository extends JpaRepository<Trip, UUID> {
+    List<Trip> findByDepartureAddress_City_NameContainsAndDestinationAddress_City_NameContainsAndStartTime(
+            String fromCityName,
+            String toCityName,
+            Date startDate
+    );
+
+    List<Trip> findByDepartureAddressInAndDestinationAddressInAndStartTimeGreaterThanEqualAndStartTimeLessThanEqual(
+    		List<Address> departuresAddresses,
+			List<Address> destinationAddresses,
+			ZonedDateTime from,
+			ZonedDateTime to
+	);
+}
