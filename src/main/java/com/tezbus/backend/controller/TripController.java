@@ -35,12 +35,12 @@ public class TripController {
     }
 
     @PostMapping
-    public ReadTripDto addTrip(@RequestBody CreateTripDto createTripDto) {
+    public ReadTripDto create(@RequestBody CreateTripDto createTripDto) {
         return tripService.create(createTripDto);
     }
 
     @PutMapping("/{id}")
-    public ReadTripDto updateTrip(@PathVariable UUID id, @RequestBody UpdateTripDto updateTripDto) {
+    public ReadTripDto update(@PathVariable UUID id, @RequestBody UpdateTripDto updateTripDto) {
         return tripService.update(id, updateTripDto);
     }
 

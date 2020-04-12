@@ -3,10 +3,8 @@ package com.tezbus.backend.entity;
 import com.tezbus.backend.enums.Gender;
 import com.tezbus.backend.enums.TransportType;
 import lombok.Data;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.UUID;
@@ -32,6 +30,7 @@ public class Driver {
     @Column(name = "birth_date", nullable = false)
     private Date birthDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = false)
     private Gender gender;
 
@@ -47,6 +46,7 @@ public class Driver {
     @Column(name = "transport_number", nullable = false)
     private String transportNumber;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "transport_type", nullable = false)
     private TransportType transportType;
 
