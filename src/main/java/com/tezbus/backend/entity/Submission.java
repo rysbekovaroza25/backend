@@ -7,9 +7,7 @@ import com.tezbus.backend.enums.TransportType;
 import lombok.Data;
 import javax.persistence.*;
 import java.time.ZonedDateTime;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Data
 @Entity
@@ -66,6 +64,6 @@ public class Submission {
     private ZonedDateTime modifiedAt;
 
     @OneToMany(mappedBy = "submission")
-    private List<SubmissionComment> submissionComments;
+    private List<SubmissionComment> submissionComments = Collections.emptyList();
 
 }
