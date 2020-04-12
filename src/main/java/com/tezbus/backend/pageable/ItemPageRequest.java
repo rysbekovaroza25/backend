@@ -4,8 +4,4 @@ public class ItemPageRequest extends PageRequest {
     public ItemPageRequest(int offset, int limit, String sortBy) {
         super(offset, limit, sortBy);
     }
-
-    public ItemPageRequest(int offset, int limit) {
-        super(offset, limit);
-    }
 }
