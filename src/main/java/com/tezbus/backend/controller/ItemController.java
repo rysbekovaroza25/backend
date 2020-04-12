@@ -8,9 +8,9 @@ import com.tezbus.backend.pageable.ItemSearchRequest;
 import com.tezbus.backend.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.UUID;
 
 @RestController
