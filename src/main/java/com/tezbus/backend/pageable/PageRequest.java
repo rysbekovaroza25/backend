@@ -11,10 +11,16 @@ public class PageRequest implements Pageable, Serializable {
     private int offset;
     private Sort sort;
 
-    public PageRequest(int offset, int limit, String sortBy) {
+    PageRequest(int offset, int limit, String sortBy) {
         this.limit = limit;
         this.offset = offset;
         this.sort = Sort.by(sortBy);
+    }
+
+    PageRequest(int offset, int limit) {
+        this.limit = limit;
+        this.offset = offset;
+        this.sort = Sort.by("createdAt");
     }
 
     @Override

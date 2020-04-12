@@ -20,7 +20,7 @@ public class ContactMessageController {
 
     @GetMapping
     public Page<ReadContactMessageDto> getAll(ContactMessagePageRequest contactMessagePageRequest) {
-        return new PageImpl(contactMessageService.getAll(contactMessagePageRequest));
+        return contactMessageService.getAll(contactMessagePageRequest);
     }
 
     @PostMapping

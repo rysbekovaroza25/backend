@@ -2,25 +2,41 @@ package com.tezbus.backend.dto;
 
 import com.tezbus.backend.enums.TransportType;
 import lombok.Data;
+
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Data
-public class ReadTripDto {
+public class UpdateTripDto {
+	@NotNull
 	private UUID id;
-	private ReadDriverDto driver;
-	private ReadAddressDto departureAddress;
-	private ReadAddressDto destinationAddress;
-	private ZonedDateTime startTime;
+
+	@NotNull
+	private UUID departureAddressId;
+
+	@NotNull
+	private UUID destinationAddressId;
+
+	@NotNull
 	private ZonedDateTime endTime;
-	private long duration;
+
+	@NotNull
+	private ZonedDateTime startTime;
+
+	@NotNull
 	private int availablePassengersCount;
+
+	@NotNull
 	private int passengersCapacity;
+
+	@NotNull
 	private BigDecimal price;
+
+	@NotNull
 	private String caption;
+
+	@NotNull
 	private TransportType transportType;
-	private boolean isDeleted;
-	private ZonedDateTime createdAt;
-	private ZonedDateTime modifiedAt;
 }

@@ -9,6 +9,7 @@ import com.tezbus.backend.pageable.SubmissionSearchRequest;
 import com.tezbus.backend.repository.SubmissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +36,7 @@ public class DefaultSubmissionService implements SubmissionService {
     private FileUploadService fileUploadService;
 
     @Override
+    @Transactional
     public ReadSubmissionDto create(MultipartFile frontFile, MultipartFile backFile, CreateSubmissionDto createSubmissionDto) throws IOException {
         Submission submission = new Submission();
         submission.setFirstName(createSubmissionDto.getFirstName());
@@ -63,10 +65,10 @@ public class DefaultSubmissionService implements SubmissionService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ReadSubmissionDto> getAll(SubmissionSearchRequest submissionSearchRequest, Pageable pageable) {
-        Page<Submission> submissions = submissionRepository.findAllByStatus(submissionSearchRequest.getStatus(), pageable);
+    public Page<ReadSubmissionDto> getAll(SubmissionSearchRequest submissionSearchRequest, Pageable pageable) {
+        List<Submission> submissions = submissionRepository.findAllByStatus(submissionSearchRequest.getStatus(), pageable);
 
-        return submissions.stream().map(it -> submissionMapper.toReadSubmissionDto(it)).collect(Collectors.toList());
+        return new PageImpl<>(submissions.stream().map(it -> submissionMapper.toReadSubmissionDto(it)).collect(Collectors.toList()));
     }
 
     @Override

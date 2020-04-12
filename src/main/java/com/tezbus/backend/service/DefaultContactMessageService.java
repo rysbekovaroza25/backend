@@ -8,12 +8,13 @@ import com.tezbus.backend.mapper.ContactMessageMapper;
 import com.tezbus.backend.repository.ContactMessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.EntityNotFoundException;
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -29,10 +30,14 @@ public class DefaultContactMessageService implements ContactMessageService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ReadContactMessageDto> getAll(Pageable pageable) {
+    public Page<ReadContactMessageDto> getAll(Pageable pageable) {
         Page<ContactMessage> contactMessages = contactMessageRepository.findAll(pageable);
 
-        return contactMessages.stream().map(it -> contactMessageMapper.toReadContactMessageDto(it)).collect(Collectors.toList());
+        return new PageImpl<>(
+                contactMessages.stream()
+                        .map(it -> contactMessageMapper.toReadContactMessageDto(it))
+                        .collect(Collectors.toList())
+        );
     }
 
     @Override

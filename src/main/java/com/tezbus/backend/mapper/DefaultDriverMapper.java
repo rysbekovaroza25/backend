@@ -1,6 +1,7 @@
 package com.tezbus.backend.mapper;
 
 import com.tezbus.backend.dto.ReadDriverDto;
+import com.tezbus.backend.dto.ReadDriverProfileDto;
 import com.tezbus.backend.entity.Driver;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,5 +24,26 @@ public class DefaultDriverMapper implements DriverMapper {
         readDriverDto.setTransportNumber(driver.getTransportNumber());
 
         return readDriverDto;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ReadDriverProfileDto toReadDriverProfileDto(Driver driver) {
+        ReadDriverProfileDto readDriverProfileDto = new ReadDriverProfileDto();
+        readDriverProfileDto.setId(driver.getId());
+        readDriverProfileDto.setUserId(driver.getUserId());
+        readDriverProfileDto.setFirstName(driver.getFirstName());
+        readDriverProfileDto.setLastName(driver.getLastName());
+        readDriverProfileDto.setBirthDate(driver.getBirthDate());
+        readDriverProfileDto.setGender(driver.getGender());
+        readDriverProfileDto.setPhoneNumber(driver.getPhoneNumber());
+        readDriverProfileDto.setEmail(driver.getEmail());
+        readDriverProfileDto.setTransportType(driver.getTransportType());
+        readDriverProfileDto.setTransportModel(driver.getTransportModel());
+        readDriverProfileDto.setTransportNumber(driver.getTransportNumber());
+        readDriverProfileDto.setCreatedAt(driver.getCreatedAt());
+        readDriverProfileDto.setModifiedAt(driver.getModifiedAt());
+
+        return readDriverProfileDto;
     }
 }

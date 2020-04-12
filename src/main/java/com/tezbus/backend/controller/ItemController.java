@@ -27,7 +27,7 @@ public class ItemController {
 
     @GetMapping
     public Page<ReadItemDto> getAll(ItemSearchRequest itemSearchRequest, ItemPageRequest itemPageRequest) {
-        return new PageImpl(itemService.getAll(itemSearchRequest, itemPageRequest));
+        return itemService.getAll(itemSearchRequest, itemPageRequest);
     }
 
     @PutMapping("/{id}/assignByDriver")

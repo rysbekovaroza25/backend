@@ -19,6 +19,7 @@ public class DefaultFileUploadService implements FileUploadService {
     @Value("${s3.bucket.name}")
     String defaultBucketName;
 
+    @Override
     public String uploadFile(String name, MultipartFile multipartFile) throws IOException {
         String fileName = multipartFile.getOriginalFilename();
         File file = new File(fileName);

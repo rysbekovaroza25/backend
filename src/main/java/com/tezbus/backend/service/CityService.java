@@ -6,4 +6,5 @@ import java.util.UUID;
 
 public interface CityService {
     City getById(UUID id);
+    City getByName(String name);
 }

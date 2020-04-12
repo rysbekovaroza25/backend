@@ -39,7 +39,7 @@ public class SubmissionController {
 
     @GetMapping
     public Page<ReadSubmissionDto> getAll(SubmissionSearchRequest submissionSearchRequest, SubmissionPageRequest submissionPageRequest) {
-        return new PageImpl(submissionService.getAll(submissionSearchRequest, submissionPageRequest));
+        return submissionService.getAll(submissionSearchRequest, submissionPageRequest);
     }
 
     @PutMapping("/{id}/approve")
