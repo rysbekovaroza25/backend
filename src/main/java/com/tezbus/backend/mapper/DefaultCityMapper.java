@@ -12,7 +12,7 @@ public class DefaultCityMapper implements CityMapper {
     @Transactional(readOnly = true)
     public ReadCityDto toReadCityDto(City city) {
         ReadCityDto readCityDto = new ReadCityDto();
-        readCityDto.setId(readCityDto.getId());
+        readCityDto.setId(city.getId());
         readCityDto.setName(city.getName());
         readCityDto.setCountry(city.getCountry());
 

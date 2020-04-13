@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Data
@@ -20,10 +21,10 @@ public class CreateTripDto {
 	private UUID destinationAddressId;
 
 	@NotNull
-	private String endTime;
+	private ZonedDateTime endTime;
 
 	@NotNull
-	private String startTime;
+	private ZonedDateTime startTime;
 
 	@NotNull
 	private int availablePassengersCount;

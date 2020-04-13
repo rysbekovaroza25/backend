@@ -35,6 +35,9 @@ public class DefaultTripMapper implements TripMapper {
         readTripDto.setPrice(trip.getPrice());
         readTripDto.setCaption(trip.getCaption());
         readTripDto.setTransportType(trip.getTransportType());
+        readTripDto.setCreatedAt(trip.getCreatedAt());
+        readTripDto.setModifiedAt(trip.getModifiedAt());
+        readTripDto.setDeleted(trip.isDeleted());
 
         return readTripDto;
     }

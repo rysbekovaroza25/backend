@@ -18,10 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
@@ -101,13 +99,16 @@ public class DefaultTripService implements TripService {
         Address destinationAddress = addressService.getById(createTripDto.getDestinationAddressId());
         Driver driver = driverService.getById(createTripDto.getDriverId());
 
+        ZonedDateTime startTime = createTripDto.getStartTime().withZoneSameInstant(ZoneId.of(departureAddress.getCity().getTimeZone()));
+        ZonedDateTime endTime = createTripDto.getEndTime().withZoneSameInstant(ZoneId.of(destinationAddress.getCity().getTimeZone()));
+
         Trip trip = new Trip();
         trip.setDepartureAddress(departureAddress);
         trip.setDestinationAddress(destinationAddress);
         trip.setDriver(driver);
+        trip.setStartTime(setTimeZone(startTime, "UTC"));
+        trip.setEndTime(setTimeZone(endTime, "UTC"));
         trip.setDuration(calculateDuration(trip));
-        trip.setStartTime(setTimeZone(trip.getStartTime(), "UTC"));
-        trip.setEndTime(setTimeZone(trip.getEndTime(), "UTC"));
         trip.setAvailablePassengersCount(createTripDto.getAvailablePassengersCount());
         trip.setPassengersCapacity(createTripDto.getPassengersCapacity());
         trip.setCaption(createTripDto.getCaption());
@@ -142,11 +143,14 @@ public class DefaultTripService implements TripService {
         Address departureAddress = addressService.getById(updateTripDto.getDepartureAddressId());
         Address destinationAddress = addressService.getById(updateTripDto.getDestinationAddressId());
 
+        ZonedDateTime startTime = updateTripDto.getStartTime().withZoneSameInstant(ZoneId.of(departureAddress.getCity().getTimeZone()));
+        ZonedDateTime endTime = updateTripDto.getEndTime().withZoneSameInstant(ZoneId.of(destinationAddress.getCity().getTimeZone()));
+
         trip.setDepartureAddress(departureAddress);
         trip.setDestinationAddress(destinationAddress);
+        trip.setStartTime(setTimeZone(startTime, "UTC"));
+        trip.setEndTime(setTimeZone(endTime, "UTC"));
         trip.setDuration(calculateDuration(trip));
-        trip.setStartTime(setTimeZone(trip.getStartTime(), "UTC"));
-        trip.setEndTime(setTimeZone(trip.getEndTime(), "UTC"));
         trip.setAvailablePassengersCount(updateTripDto.getAvailablePassengersCount());
         trip.setPassengersCapacity(updateTripDto.getPassengersCapacity());
         trip.setCaption(updateTripDto.getCaption());

@@ -22,6 +22,8 @@ public class DefaultDriverMapper implements DriverMapper {
         readDriverDto.setTransportType(driver.getTransportType());
         readDriverDto.setTransportModel(driver.getTransportModel());
         readDriverDto.setTransportNumber(driver.getTransportNumber());
+        readDriverDto.setCreatedAt(driver.getCreatedAt());
+        readDriverDto.setModifiedAt(driver.getModifiedAt());
 
         return readDriverDto;
     }
