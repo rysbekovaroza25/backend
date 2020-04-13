@@ -2,7 +2,9 @@ package com.tezbus.backend.dto;
 
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 public class AssignByDriverDto {
-    private String driverId;
+    private UUID driverId;
 }

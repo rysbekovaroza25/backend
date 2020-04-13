@@ -4,6 +4,7 @@ import com.tezbus.backend.dto.AssignByDriverDto;
 import com.tezbus.backend.dto.CreateItemDto;
 import com.tezbus.backend.dto.ReadItemDto;
 import com.tezbus.backend.entity.City;
+import com.tezbus.backend.entity.Driver;
 import com.tezbus.backend.entity.Item;
 import com.tezbus.backend.mapper.ItemMapper;
 import com.tezbus.backend.pageable.ItemSearchRequest;
@@ -31,6 +32,9 @@ public class DefaultItemService implements ItemService {
     private CityService cityService;
 
     @Autowired
+    private DriverService driverService;
+
+    @Autowired
     private ItemMapper itemMapper;
 
     @Override
@@ -48,7 +52,7 @@ public class DefaultItemService implements ItemService {
         item.setEmail(createItemDto.getEmail());
         item.setPhoneNumber(createItemDto.getPhoneNumber());
         item.setIsActive(true);
-        item.setAssignedDriverId(null);
+        item.setAssignedDriver(null);
         item.setCreatedAt(ZonedDateTime.now());
         item.setModifiedAt(ZonedDateTime.now());
 
@@ -60,11 +64,10 @@ public class DefaultItemService implements ItemService {
     @Override
     @Transactional(readOnly = true)
     public Page<ReadItemDto> getAll(ItemSearchRequest itemSearchRequest, Pageable pageable) {
-        Page<Item> items = itemRepository.findByFromCityContainingIgnoreCaseAndToCityContainingIgnoreCase(
-                itemSearchRequest.getFromCity(),
-                itemSearchRequest.getToCity(),
-                pageable
-        );
+        City fromCity = cityService.getById(itemSearchRequest.getFromCity());
+        City toCity = cityService.getById(itemSearchRequest.getToCity());
+
+        Page<Item> items = itemRepository.findByFromCityAndToCityAndIsActive(fromCity, toCity, true, pageable);
 
         return new PageImpl<>(items.stream().map(it -> itemMapper.toReadItemDto(it)).collect(Collectors.toList()));
     }
@@ -75,7 +78,9 @@ public class DefaultItemService implements ItemService {
         Optional<Item> optionalItem = itemRepository.findById(id);
         Item item = optionalItem.orElseThrow(() -> new EntityNotFoundException("There is no Item with id: " + id));
 
-        item.setAssignedDriverId(assignByDriverDto.getDriverId());
+        Driver driver = driverService.getById(assignByDriverDto.getDriverId());
+
+        item.setAssignedDriver(driver);
         item.setModifiedAt(ZonedDateTime.now());
         item.setIsActive(false);
 
