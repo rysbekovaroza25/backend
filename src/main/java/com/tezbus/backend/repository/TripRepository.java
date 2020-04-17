@@ -2,7 +2,6 @@ package com.tezbus.backend.repository;
 
 import com.tezbus.backend.entity.Address;
 import com.tezbus.backend.entity.Trip;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -15,7 +15,7 @@ public class DefaultCityMapper implements CityMapper {
         readCityDto.setId(city.getId());
         readCityDto.setName(city.getName());
         readCityDto.setCountry(city.getCountry());
-
+        readCityDto.setTimeZone(city.getTimeZone());
         return readCityDto;
     }
 }

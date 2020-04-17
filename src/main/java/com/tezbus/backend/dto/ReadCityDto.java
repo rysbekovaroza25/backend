@@ -8,4 +8,5 @@ public class ReadCityDto {
 	private UUID id;
 	private String name;
 	private String country;
+	private String timeZone;
 }

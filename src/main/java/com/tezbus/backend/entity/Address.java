@@ -27,6 +27,9 @@ public class Address {
 	@Column(name = "street_name", nullable = false)
 	private String streetName;
 
+	@Column(name = "is_deleted", nullable = false)
+	private boolean isDeleted;
+
 	@Column(name = "created_at", nullable = false)
 	private ZonedDateTime createdAt;
 
