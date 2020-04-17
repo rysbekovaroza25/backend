@@ -38,16 +38,15 @@ public class DefaultCityService implements CityService {
         city.setModifiedAt(ZonedDateTime.now());
         city.setDeleted(false);
 
-        City newCity = cityRepository.save(city);
+        City savedCity = cityRepository.save(city);
 
-        return cityMapper.toReadCityDto(newCity);
+        return cityMapper.toReadCityDto(savedCity);
     }
 
     @Override
     @Transactional
     public ReadCityDto update(UUID id, UpdateCityDto updateCityDto) {
-        Optional<City> optionalCity = cityRepository.findById(id);
-        City city = optionalCity.orElseThrow(() -> new EntityNotFoundException("There is no City with id " + id));
+        City city = getById(id);
         city.setName(updateCityDto.getName());
         city.setCountry(updateCityDto.getCountry());
         city.setTimeZone(updateCityDto.getTimeZone());
@@ -82,7 +81,7 @@ public class DefaultCityService implements CityService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<ReadCityDto> getAllCities(Pageable pageable) {
+    public Page<ReadCityDto> getAll(Pageable pageable) {
         return new PageImpl<>(cityRepository.findAll(pageable)
                 .stream()
                 .filter(city -> !city.isDeleted())

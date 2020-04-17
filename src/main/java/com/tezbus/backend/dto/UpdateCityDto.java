@@ -3,12 +3,9 @@ package com.tezbus.backend.dto;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
 @Data
 public class UpdateCityDto {
-    @NotNull
-    private UUID id;
 
     @NotNull
     private String name;
@@ -18,7 +15,4 @@ public class UpdateCityDto {
 
     @NotNull
     private String timeZone;
-
-    @NotNull
-    private boolean isDeleted;
 }

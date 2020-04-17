@@ -35,24 +35,25 @@ public class DefaultAddressService implements AddressService {
     @Override
     @Transactional
     public ReadAddressDto create(CreateAddressDto createAddressDto) {
+        City city = cityService.getById(createAddressDto.getCityId());
         Address address = new Address();
         address.setStreetName(createAddressDto.getStreetName());
-        City city = cityService.getById(createAddressDto.getCityId());
         address.setCity(city);
         address.setCreatedAt(ZonedDateTime.now());
         address.setModifiedAt(ZonedDateTime.now());
+        address.setDeleted(false);
 
-        Address newAddress = addressRepository.save(address);
+        Address savedAddress = addressRepository.save(address);
 
-        return addressMapper.toReadAddressDto(newAddress);
+        return addressMapper.toReadAddressDto(savedAddress);
     }
 
     @Override
     @Transactional
     public ReadAddressDto update(UUID id, UpdateAddressDto updateAddressDto) {
+        City city = cityService.getById(updateAddressDto.getCityId());
         Address address = getById(id);
         address.setStreetName(updateAddressDto.getStreetName());
-        City city = cityService.getById(updateAddressDto.getCityId());
         address.setCity(city);
         address.setModifiedAt(ZonedDateTime.now());
 
@@ -84,7 +85,8 @@ public class DefaultAddressService implements AddressService {
     @Override
     @Transactional(readOnly = true)
     public Page<ReadAddressDto> getAddressesByCity(UUID cityId) {
-        return new PageImpl<>(addressRepository.findByCity_Id(cityId)
+        City city = cityService.getById(cityId);
+        return new PageImpl<>(addressRepository.findByCity(city)
                 .stream()
                 .filter(address -> !address.isDeleted())
                 .map(address -> addressMapper.toReadAddressDto(address))

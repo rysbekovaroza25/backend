@@ -7,8 +7,6 @@ import java.util.UUID;
 
 @Data
 public class UpdateAddressDto {
-    @NotNull
-    private UUID id;
 
     @NotNull
     private UUID cityId;

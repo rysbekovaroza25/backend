@@ -20,7 +20,7 @@ public interface CityService {
 
     City getByName(String name);
 
-    Page<ReadCityDto> getAllCities(Pageable pageable);
+    Page<ReadCityDto> getAll(Pageable pageable);
 
     void delete(UUID id);
 

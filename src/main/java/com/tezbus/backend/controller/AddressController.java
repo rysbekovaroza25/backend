@@ -7,6 +7,7 @@ import com.tezbus.backend.pageable.AddressPageRequest;
 import com.tezbus.backend.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -19,21 +20,21 @@ public class AddressController {
     private AddressService addressService;
 
     @PostMapping
-    public ReadAddressDto create(@RequestBody CreateAddressDto createAddressDto){
+    public ReadAddressDto create(@RequestBody @Validated CreateAddressDto createAddressDto){
         return addressService.create(createAddressDto);
     }
 
-    @PutMapping("/{addressId}")
-    public ReadAddressDto update(@PathVariable UUID addressId, @RequestBody UpdateAddressDto updateAddressDto){
-        return addressService.update(addressId, updateAddressDto);
+    @PutMapping("/{id}")
+    public ReadAddressDto update(@PathVariable UUID id, @RequestBody @Validated UpdateAddressDto updateAddressDto){
+        return addressService.update(id, updateAddressDto);
     }
 
-    @GetMapping("/{addressId}")
-    public ReadAddressDto getById(@PathVariable UUID addressId){
-        return addressService.getAddressById(addressId);
+    @GetMapping("/{id}")
+    public ReadAddressDto getById(@PathVariable UUID id){
+        return addressService.getAddressById(id);
     }
 
-    @GetMapping("/city/{cityId}")
+    @GetMapping("/getByCity/{cityId}")
     public Page<ReadAddressDto> getAllByCityId(@PathVariable UUID cityId){
         return addressService.getAddressesByCity(cityId);
     }
@@ -43,8 +44,8 @@ public class AddressController {
         return addressService.getAll(addressPageRequest);
     }
 
-    @DeleteMapping("/{addressId}")
-    public void delete(@PathVariable UUID addressId){
-        addressService.delete(addressId);
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable UUID id){
+        addressService.delete(id);
     }
 }
