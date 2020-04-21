@@ -14,6 +14,9 @@ public class DefaultSubmissionMapper implements SubmissionMapper {
     @Autowired
     private SubmissionCommentMapper submissionCommentMapper;
 
+    @Autowired
+    private DriverMapper driverMapper;
+
     @Override
     public ReadSubmissionDto toReadSubmissionDto(Submission submission) {
         List<ReadSubmissionCommentDto> readSubmissionCommentDtos = submission.getSubmissionComments()
@@ -23,12 +26,10 @@ public class DefaultSubmissionMapper implements SubmissionMapper {
 
         ReadSubmissionDto submissionDto = new ReadSubmissionDto();
         submissionDto.setId(submission.getId());
-        submissionDto.setFirstName(submission.getFirstName());
-        submissionDto.setLastName(submission.getLastName());
+        submissionDto.setReadDriverDto(driverMapper.toReadDriverDto(submission.getDriver()));
         submissionDto.setBirthDate(submission.getBirthDate());
         submissionDto.setEmail(submission.getEmail());
         submissionDto.setGender(submission.getGender());
-        submissionDto.setPhoneNumber(submission.getPhoneNumber());
         submissionDto.setDriverLicenseCardFrontUrl(submission.getDriverLicenseCardFrontUrl());
         submissionDto.setDriverLicenseCardBackUrl(submission.getDriverLicenseCardBackUrl());
         submissionDto.setTransportModel(submission.getTransportModel());

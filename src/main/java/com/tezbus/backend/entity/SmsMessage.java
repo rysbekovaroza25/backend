@@ -1,5 +1,6 @@
 package com.tezbus.backend.entity;
 
+import com.tezbus.backend.enums.NotificationType;
 import lombok.Data;
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -22,6 +23,10 @@ public class SmsMessage {
 
 	@Column(name = "trip_id")
 	private String tripId;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "notification_type")
+	private NotificationType notificationType;
 
 	@Column(name = "created_at", nullable = false)
 	private ZonedDateTime createdAt;
