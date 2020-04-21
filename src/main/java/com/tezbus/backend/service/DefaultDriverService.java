@@ -7,6 +7,7 @@ import com.tezbus.backend.entity.Driver;
 import com.tezbus.backend.mapper.DriverMapper;
 import com.tezbus.backend.repository.DriverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
