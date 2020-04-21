@@ -3,6 +3,7 @@ package com.tezbus.backend.service;
 import com.tezbus.backend.dto.CreateSmsMessageDto;
 import com.tezbus.backend.dto.ReadSmsMessageDto;
 import com.tezbus.backend.entity.SmsMessage;
+import com.tezbus.backend.enums.NotificationType;
 import com.tezbus.backend.mapper.SmsMessageMapper;
 import com.tezbus.backend.repository.SmsMessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class DefaultSmsMessageService implements SmsMessageService {
         smsMessage.setPhoneNumber(createSmsMessageDto.getPhoneNumber());
         smsMessage.setContent(createSmsMessageDto.getContent());
         smsMessage.setTripId(createSmsMessageDto.getTripId());
+        smsMessage.setNotificationType(NotificationType.REGISTRATION);
         smsMessage.setCreatedAt(ZonedDateTime.now());
         smsMessage.setModifiedAt(ZonedDateTime.now());
 

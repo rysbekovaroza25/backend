@@ -12,6 +12,7 @@ import com.tezbus.backend.dto.CreateSmsMessageDto;
 import com.tezbus.backend.dto.ReadSmsMessageDto;
 import com.tezbus.backend.entity.Driver;
 import com.tezbus.backend.entity.SmsMessage;
+import com.tezbus.backend.enums.NotificationType;
 import com.tezbus.backend.property.AmazonSnsProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,7 @@ public class DefaultSmsMessageSenderService implements SmsMessageSenderService {
 
         CreateSmsMessageDto createSmsMessageDto = new CreateSmsMessageDto();
         createSmsMessageDto.setContent(content);
+        createSmsMessageDto.setNotificationType(NotificationType.REGISTRATION);
         createSmsMessageDto.setPhoneNumber(driver.getPhoneNumber());
 
         return smsMessageService.create(createSmsMessageDto);

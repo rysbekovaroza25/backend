@@ -1,5 +1,6 @@
 package com.tezbus.backend.dto;
 
+import com.tezbus.backend.enums.NotificationType;
 import lombok.Data;
 import javax.validation.constraints.NotNull;
 
@@ -12,4 +13,7 @@ public class CreateSmsMessageDto {
 	private String content;
 
 	private String tripId;
+
+	@NotNull
+	private NotificationType notificationType;
 }
