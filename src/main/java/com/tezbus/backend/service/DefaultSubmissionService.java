@@ -2,6 +2,7 @@ package com.tezbus.backend.service;
 
 import com.tezbus.backend.dto.CreateSubmissionDto;
 import com.tezbus.backend.dto.ReadSubmissionDto;
+import com.tezbus.backend.entity.Driver;
 import com.tezbus.backend.entity.Submission;
 import com.tezbus.backend.enums.SubmissionStatus;
 import com.tezbus.backend.mapper.SubmissionMapper;
@@ -35,22 +36,24 @@ public class DefaultSubmissionService implements SubmissionService {
     @Autowired
     private FileUploadService fileUploadService;
 
+    @Autowired
+    private DriverService driverService;
+
     @Override
     @Transactional
     public ReadSubmissionDto create(MultipartFile frontFile, MultipartFile backFile, CreateSubmissionDto createSubmissionDto) throws IOException {
+        Driver driver = driverService.getById(createSubmissionDto.getDriverId());
+
         Submission submission = new Submission();
-        submission.setFirstName(createSubmissionDto.getFirstName());
-        submission.setLastName(createSubmissionDto.getLastName());
         submission.setBirthDate(createSubmissionDto.getBirthDate());
         submission.setEmail(createSubmissionDto.getEmail());
         submission.setGender(createSubmissionDto.getGender());
-        submission.setPhoneNumber(createSubmissionDto.getPhoneNumber());
+        submission.setDriver(driver);
         submission.setTransportModel(createSubmissionDto.getTransportModel());
         submission.setTransportNumber(createSubmissionDto.getTransportNumber());
         submission.setTransportType(createSubmissionDto.getTransportType());
         submission.setStatus(SubmissionStatus.PENDING);
         submission.setCreatedAt(ZonedDateTime.now());
-        submission.setModifiedAt(ZonedDateTime.now());
 
         String driverLicenseCardFrontUrl = fileUploadService.uploadFile(frontFile.getOriginalFilename(), frontFile);
         String driverLicenseCardBackUrl = fileUploadService.uploadFile(backFile.getOriginalFilename(), backFile);

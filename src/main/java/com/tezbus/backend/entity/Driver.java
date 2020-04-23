@@ -18,8 +18,8 @@ public class Driver {
     @Column(name = "id", unique = true, nullable = false)
     private UUID id = UUID.randomUUID();
 
-    @Column(name = "user_id")
-    private String userId;
+    @Column(name = "user_id", nullable = false)
+    private UUID userId;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -27,27 +27,27 @@ public class Driver {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "birth_date", nullable = false)
+    @Column(name = "birth_date")
     private Date birthDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "gender", nullable = false)
+    @Column(name = "gender")
     private Gender gender;
 
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "transport_model", nullable = false)
+    @Column(name = "transport_model")
     private String transportModel;
 
-    @Column(name = "transport_number", nullable = false)
+    @Column(name = "transport_number")
     private String transportNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "transport_type", nullable = false)
+    @Column(name = "transport_type")
     private TransportType transportType;
 
     @Column(name = "created_at", nullable = false)

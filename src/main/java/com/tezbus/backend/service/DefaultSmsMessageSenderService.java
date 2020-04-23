@@ -10,8 +10,12 @@ import com.amazonaws.services.sns.model.PublishRequest;
 import com.amazonaws.services.sns.model.PublishResult;
 import com.tezbus.backend.dto.CreateSmsMessageDto;
 import com.tezbus.backend.dto.ReadSmsMessageDto;
+import com.tezbus.backend.entity.Driver;
+import com.tezbus.backend.entity.SmsMessage;
+import com.tezbus.backend.enums.NotificationType;
 import com.tezbus.backend.property.AmazonSnsProperty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -26,25 +30,39 @@ public class DefaultSmsMessageSenderService implements SmsMessageSenderService {
     @Autowired
     private AmazonSnsProperty amazonSnsProperty;
 
-
     @Override
-    public ReadSmsMessageDto send(CreateSmsMessageDto createSmsMessageDto) {
+    @Async
+    public ReadSmsMessageDto sendOnDriverRegistration(Driver driver) {
+        String content = "Здравствуйте " + driver.getFirstName() + ", \n\n" +
+                "Вы успешно зарегистрировались в качестве водителя на платформе Tezbus! Теперь вы можете " +
+                "выкладывать ваши поездки, назначать цены на них и находить попутчиков. " +
+                "Войдите в свой профиль: www.tezbus.com";
+
+        send(content, driver.getPhoneNumber());
+
+        CreateSmsMessageDto createSmsMessageDto = new CreateSmsMessageDto();
+        createSmsMessageDto.setContent(content);
+        createSmsMessageDto.setNotificationType(NotificationType.REGISTRATION);
+        createSmsMessageDto.setPhoneNumber(driver.getPhoneNumber());
+
+        return smsMessageService.create(createSmsMessageDto);
+    }
+
+    private void send(String content, String phoneNumber) {
         BasicAWSCredentials awsCredentials = new BasicAWSCredentials(amazonSnsProperty.getAccessKey(), amazonSnsProperty.getSecretKey());
-        AmazonSNS snsClient = AmazonSNSClientBuilder.standard().withRegion(Regions.EU_WEST_1)
+        AmazonSNS snsClient = AmazonSNSClientBuilder.standard().withRegion(Regions.EU_CENTRAL_1)
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials)).build();
 
-        Map<String, MessageAttributeValue> smsAttributes = new HashMap<String, MessageAttributeValue>();
+        Map<String, MessageAttributeValue> smsAttributes = new HashMap<>();
         smsAttributes.put("AWS.SNS.SMS.SenderID", new MessageAttributeValue()
                 .withStringValue(amazonSnsProperty.getSenderId()).withDataType("String"));
         smsAttributes.put("AWS.SNS.SMS.SMSType", new MessageAttributeValue()
                 .withStringValue(amazonSnsProperty.getSmsType()).withDataType("String"));
 
         PublishRequest request = new PublishRequest();
-        request.withMessage(createSmsMessageDto.getContent())
-                .withPhoneNumber(createSmsMessageDto.getPhoneNumber())
+        request.withMessage(content)
+                .withPhoneNumber(phoneNumber)
                 .withMessageAttributes(smsAttributes);
         PublishResult result = snsClient.publish(request);
-
-        return smsMessageService.create(createSmsMessageDto);
     }
 }

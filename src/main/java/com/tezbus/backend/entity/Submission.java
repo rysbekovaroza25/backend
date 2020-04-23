@@ -18,12 +18,6 @@ public class Submission {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id = UUID.randomUUID();
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
-
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
-
     @Column(name = "birth_date", nullable = false)
     private Date birthDate;
 
@@ -33,9 +27,6 @@ public class Submission {
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", length = 6, nullable = false)
     private Gender gender;
-
-    @Column(name = "phone_number", length = 20, nullable = false)
-    private String phoneNumber;
 
     @Column(name = "driver_license_card_front_url", nullable = false)
     private String driverLicenseCardFrontUrl;
@@ -56,6 +47,10 @@ public class Submission {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 8, nullable = false)
     private SubmissionStatus status;
+
+    @ManyToOne
+    @JoinColumn(name = "driver_id")
+    private Driver driver;
 
     @Column(name = "created_at", nullable = false)
     private ZonedDateTime createdAt;

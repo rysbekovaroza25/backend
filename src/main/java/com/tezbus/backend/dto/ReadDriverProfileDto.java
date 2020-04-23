@@ -11,7 +11,7 @@ import java.util.UUID;
 @Data
 public class ReadDriverProfileDto {
 	private UUID id;
-	private String userId;
+	private UUID userId;
 	private String firstName;
 	private String lastName;
 	private Date birthDate;

@@ -13,12 +13,10 @@ import java.util.UUID;
 @Data
 public class ReadSubmissionDto {
     private UUID id;
-    private String firstName;
-    private String lastName;
     private Date birthDate;
     private String email;
     private Gender gender;
-    private String phoneNumber;
+    private ReadDriverDto readDriverDto;
     private String driverLicenseCardFrontUrl;
     private String driverLicenseCardBackUrl;
     private String transportModel;
