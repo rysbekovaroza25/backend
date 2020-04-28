@@ -53,6 +53,7 @@ public class Trip {
     @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "transport_type", nullable = false)
     private TransportType transportType;
 
