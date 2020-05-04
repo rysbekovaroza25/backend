@@ -16,6 +16,8 @@ public class DefaultCityMapper implements CityMapper {
         readCityDto.setName(city.getName());
         readCityDto.setCountry(city.getCountry());
         readCityDto.setTimeZone(city.getTimeZone());
+        readCityDto.setGeoLatitude(city.getGeoLatitude());
+        readCityDto.setGeoLongitude(city.getGeoLongitude());
         return readCityDto;
     }
 }
