@@ -36,6 +36,8 @@ public class DefaultCityService implements CityService {
         city.setTimeZone(createCityDto.getTimeZone());
         city.setCreatedAt(ZonedDateTime.now());
         city.setModifiedAt(ZonedDateTime.now());
+        city.setGeoLatitude(createCityDto.getGeoLatitude());
+        city.setGeoLongitude(createCityDto.getGeoLongitude());
         city.setDeleted(false);
 
         City savedCity = cityRepository.save(city);
@@ -51,6 +53,8 @@ public class DefaultCityService implements CityService {
         city.setCountry(updateCityDto.getCountry());
         city.setTimeZone(updateCityDto.getTimeZone());
         city.setModifiedAt(ZonedDateTime.now());
+        city.setGeoLatitude(updateCityDto.getGeoLatitude());
+        city.setGeoLongitude(updateCityDto.getGeoLongitude());
 
         City updatedCity = cityRepository.save(city);
 

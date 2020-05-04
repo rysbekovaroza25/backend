@@ -6,8 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 @Data
@@ -27,6 +27,12 @@ public class City {
 
     @Column(name = "time_zone", nullable = false)
     private String timeZone;
+
+    @Column(name = "geo_latitude", nullable = false)
+    private BigDecimal geoLatitude;
+
+    @Column(name = "geo_longitude", nullable = false)
+    private BigDecimal geoLongitude;
 
     @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted;

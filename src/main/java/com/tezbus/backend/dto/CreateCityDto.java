@@ -3,6 +3,7 @@ package com.tezbus.backend.dto;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Data
 public class CreateCityDto {
@@ -15,5 +16,11 @@ public class CreateCityDto {
 
     @NotNull
     private String timeZone;
+
+    @NotNull
+    private BigDecimal geoLatitude;
+
+    @NotNull
+    private BigDecimal geoLongitude;
 
 }
