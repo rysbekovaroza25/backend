@@ -48,7 +48,7 @@ public class DefaultDriverService implements DriverService {
     @Transactional
     public ReadDriverDto create(CreateDriverDto createDriverDto) {
         Driver driver = new Driver();
-        driver.setUserId(createDriverDto.getUserId());
+        driver.setUserId(UUID.fromString(createDriverDto.getUserId()));
         driver.setFirstName(createDriverDto.getFirstName());
         driver.setLastName(createDriverDto.getLastName());
         driver.setPhoneNumber(createDriverDto.getPhoneNumber());
