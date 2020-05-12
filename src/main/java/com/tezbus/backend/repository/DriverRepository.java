@@ -8,4 +8,5 @@ import java.util.UUID;
 public interface DriverRepository extends JpaRepository<Driver, UUID> {
 	Driver findByFirstName(String firstName);
 	Driver findByFirstNameOrLastName(String firstName, String lastName);
+	Driver findByUserId(String userId);
 }

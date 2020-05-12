@@ -9,6 +9,7 @@ import java.util.UUID;
 
 public interface DriverService {
     ReadDriverProfileDto getDriverProfile(UUID driverId);
+    ReadDriverDto getDriverByUserId(String userId);
     Driver getById(UUID id);
     ReadDriverDto create(CreateDriverDto createDriverDto);
 }

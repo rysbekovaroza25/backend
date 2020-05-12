@@ -39,6 +39,13 @@ public class DefaultDriverService implements DriverService {
 
     @Override
     @Transactional(readOnly = true)
+    public ReadDriverDto getDriverByUserId(String userId) {
+        Driver driver = driverRepository.findByUserId(userId);
+        return driverMapper.toReadDriverDto(driver);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public Driver getById(UUID id) {
         Optional<Driver> optionalDriver = driverRepository.findById(id);
         return optionalDriver.orElseThrow(() -> new EntityNotFoundException("There is no Driver with name: " + id));

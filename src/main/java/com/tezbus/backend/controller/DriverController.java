@@ -26,4 +26,9 @@ public class DriverController {
     public ReadDriverDto create(@RequestBody @Validated CreateDriverDto createDriverDto) {
         return driverService.create(createDriverDto);
     }
+
+    @GetMapping("/findDriverByUserId/{userId}")
+    public ReadDriverDto findDriverByUserId(@PathVariable String userId) {
+        return driverService.getDriverByUserId(userId);
+    }
 }
