@@ -13,7 +13,7 @@ public class DefaultItemMapper implements ItemMapper {
     private CityMapper cityMapper;
 
     @Autowired
-    private DriverMapper driverMapper;
+    private UserMapper driverMapper;
 
     @Override
     @Transactional(readOnly = true)

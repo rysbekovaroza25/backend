@@ -15,7 +15,7 @@ public class DefaultSubmissionMapper implements SubmissionMapper {
     private SubmissionCommentMapper submissionCommentMapper;
 
     @Autowired
-    private DriverMapper driverMapper;
+    private UserMapper driverMapper;
 
     @Override
     public ReadSubmissionDto toReadSubmissionDto(Submission submission) {
@@ -26,7 +26,7 @@ public class DefaultSubmissionMapper implements SubmissionMapper {
 
         ReadSubmissionDto submissionDto = new ReadSubmissionDto();
         submissionDto.setId(submission.getId());
-        submissionDto.setReadDriverDto(driverMapper.toReadDriverDto(submission.getDriver()));
+        submissionDto.setReadUserDto(driverMapper.toReadDriverDto(submission.getDriver()));
         submissionDto.setBirthDate(submission.getBirthDate());
         submissionDto.setEmail(submission.getEmail());
         submissionDto.setGender(submission.getGender());

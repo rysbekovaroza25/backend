@@ -5,7 +5,7 @@ import com.tezbus.backend.dto.ReadTripDto;
 import com.tezbus.backend.dto.UpdateTripDto;
 import com.tezbus.backend.entity.Address;
 import com.tezbus.backend.entity.City;
-import com.tezbus.backend.entity.Driver;
+import com.tezbus.backend.entity.User;
 import com.tezbus.backend.entity.Trip;
 import com.tezbus.backend.mapper.TripMapper;
 import com.tezbus.backend.pageable.TripSearchRequest;
@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
@@ -40,7 +39,7 @@ public class DefaultTripService implements TripService {
     private AddressService addressService;
 
     @Autowired
-    private DriverService driverService;
+    private UserService userService;
 
     @Autowired
     private TripMapper tripMapper;
@@ -97,7 +96,7 @@ public class DefaultTripService implements TripService {
     public ReadTripDto create(CreateTripDto createTripDto) {
         Address departureAddress = addressService.getById(createTripDto.getDepartureAddressId());
         Address destinationAddress = addressService.getById(createTripDto.getDestinationAddressId());
-        Driver driver = driverService.getById(createTripDto.getDriverId());
+        User driver = userService.getById(createTripDto.getDriverId());
 
         ZonedDateTime startTime = createTripDto.getStartTime().withZoneSameInstant(ZoneId.of(departureAddress.getCity().getTimeZone()));
         ZonedDateTime endTime = createTripDto.getEndTime().withZoneSameInstant(ZoneId.of(destinationAddress.getCity().getTimeZone()));

@@ -16,7 +16,7 @@ public class ReadItemDto {
     private String email;
     private String phoneNumber;
     private Boolean isActive;
-    private ReadDriverDto assignedDriverDto;
+    private ReadUserDto assignedDriverDto;
     private ZonedDateTime createdAt;
     private ZonedDateTime modifiedAt;
 }

@@ -43,7 +43,7 @@ public class Item {
 
     @ManyToOne
     @JoinColumn(name = "assigned_driver_id")
-    private Driver assignedDriver;
+    private User assignedDriver;
 
     @Column(name = "created_at", nullable = false)
     private ZonedDateTime createdAt;

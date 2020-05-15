@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Data
-public class ReadDriverProfileDto {
+public class ReadUserProfileDto {
 	private UUID id;
 	private UUID userId;
 	private String firstName;

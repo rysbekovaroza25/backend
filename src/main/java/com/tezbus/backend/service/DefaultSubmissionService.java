@@ -2,7 +2,7 @@ package com.tezbus.backend.service;
 
 import com.tezbus.backend.dto.CreateSubmissionDto;
 import com.tezbus.backend.dto.ReadSubmissionDto;
-import com.tezbus.backend.entity.Driver;
+import com.tezbus.backend.entity.User;
 import com.tezbus.backend.entity.Submission;
 import com.tezbus.backend.enums.SubmissionStatus;
 import com.tezbus.backend.mapper.SubmissionMapper;
@@ -37,12 +37,12 @@ public class DefaultSubmissionService implements SubmissionService {
     private FileUploadService fileUploadService;
 
     @Autowired
-    private DriverService driverService;
+    private UserService userService;
 
     @Override
     @Transactional
     public ReadSubmissionDto create(MultipartFile frontFile, MultipartFile backFile, CreateSubmissionDto createSubmissionDto) throws IOException {
-        Driver driver = driverService.getById(createSubmissionDto.getDriverId());
+        User driver = userService.getById(createSubmissionDto.getDriverId());
 
         Submission submission = new Submission();
         submission.setBirthDate(createSubmissionDto.getBirthDate());

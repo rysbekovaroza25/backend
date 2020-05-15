@@ -14,7 +14,7 @@ import java.time.temporal.ChronoUnit;
 public class DefaultTripMapper implements TripMapper {
 
     @Autowired
-    private DriverMapper driverMapper;
+    private UserMapper driverMapper;
 
     @Autowired
     private AddressMapper addressMapper;

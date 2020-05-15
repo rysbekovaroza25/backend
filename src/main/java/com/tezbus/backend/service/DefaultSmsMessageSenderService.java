@@ -10,8 +10,7 @@ import com.amazonaws.services.sns.model.PublishRequest;
 import com.amazonaws.services.sns.model.PublishResult;
 import com.tezbus.backend.dto.CreateSmsMessageDto;
 import com.tezbus.backend.dto.ReadSmsMessageDto;
-import com.tezbus.backend.entity.Driver;
-import com.tezbus.backend.entity.SmsMessage;
+import com.tezbus.backend.entity.User;
 import com.tezbus.backend.enums.NotificationType;
 import com.tezbus.backend.property.AmazonSnsProperty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ public class DefaultSmsMessageSenderService implements SmsMessageSenderService {
 
     @Override
     @Async
-    public ReadSmsMessageDto sendOnDriverRegistration(Driver driver) {
+    public ReadSmsMessageDto sendOnDriverRegistration(User driver) {
         String content = "Здравствуйте " + driver.getFirstName() + ", \n\n" +
                 "Вы успешно зарегистрировались в качестве водителя на платформе Tezbus! Теперь вы можете " +
                 "выкладывать ваши поездки, назначать цены на них и находить попутчиков. " +

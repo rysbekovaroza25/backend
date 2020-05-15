@@ -8,7 +8,7 @@ import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Data
-public class ReadDriverDto {
+public class ReadUserDto {
 	private UUID id;
 	private String firstName;
 	private String lastName;

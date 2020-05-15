@@ -9,7 +9,7 @@ import java.util.UUID;
 @Data
 public class ReadTripDto {
 	private UUID id;
-	private ReadDriverDto driver;
+	private ReadUserDto driver;
 	private ReadAddressDto departureAddress;
 	private ReadAddressDto destinationAddress;
 	private ZonedDateTime startTime;

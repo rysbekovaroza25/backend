@@ -4,7 +4,7 @@ import com.tezbus.backend.dto.AssignByDriverDto;
 import com.tezbus.backend.dto.CreateItemDto;
 import com.tezbus.backend.dto.ReadItemDto;
 import com.tezbus.backend.entity.City;
-import com.tezbus.backend.entity.Driver;
+import com.tezbus.backend.entity.User;
 import com.tezbus.backend.entity.Item;
 import com.tezbus.backend.mapper.ItemMapper;
 import com.tezbus.backend.pageable.ItemSearchRequest;
@@ -32,7 +32,7 @@ public class DefaultItemService implements ItemService {
     private CityService cityService;
 
     @Autowired
-    private DriverService driverService;
+    private UserService userService;
 
     @Autowired
     private ItemMapper itemMapper;
@@ -78,7 +78,7 @@ public class DefaultItemService implements ItemService {
         Optional<Item> optionalItem = itemRepository.findById(id);
         Item item = optionalItem.orElseThrow(() -> new EntityNotFoundException("There is no Item with id: " + id));
 
-        Driver driver = driverService.getById(assignByDriverDto.getDriverId());
+        User driver = userService.getById(assignByDriverDto.getDriverId());
 
         item.setAssignedDriver(driver);
         item.setModifiedAt(ZonedDateTime.now());

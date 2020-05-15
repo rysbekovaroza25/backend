@@ -19,7 +19,7 @@ public class Trip {
 
     @ManyToOne
     @JoinColumn(name = "driver_id", nullable = false)
-    private Driver driver;
+    private User driver;
 
     @ManyToOne
     @JoinColumn(name = "departure_address_id", nullable = false)

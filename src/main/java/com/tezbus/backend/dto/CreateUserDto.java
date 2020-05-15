@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Data
-public class CreateDriverDto {
+public class CreateUserDto {
 
     @NotNull
     private String userId;

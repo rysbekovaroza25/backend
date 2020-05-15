@@ -1,7 +1,6 @@
 package com.tezbus.backend.entity;
 
 import com.tezbus.backend.enums.Gender;
-import com.tezbus.backend.enums.ContactMessageStatus;
 import com.tezbus.backend.enums.SubmissionStatus;
 import com.tezbus.backend.enums.TransportType;
 import lombok.Data;
@@ -50,7 +49,7 @@ public class Submission {
 
     @ManyToOne
     @JoinColumn(name = "driver_id")
-    private Driver driver;
+    private User driver;
 
     @Column(name = "created_at", nullable = false)
     private ZonedDateTime createdAt;
