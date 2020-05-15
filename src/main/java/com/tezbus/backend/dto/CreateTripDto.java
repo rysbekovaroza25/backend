@@ -12,7 +12,7 @@ import java.util.UUID;
 public class CreateTripDto {
 
 	@NotNull
-	private UUID driverId;
+	private String userId;
 
 	@NotNull
 	private UUID departureAddressId;

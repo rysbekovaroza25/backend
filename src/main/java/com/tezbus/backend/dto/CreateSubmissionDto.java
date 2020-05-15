@@ -11,7 +11,7 @@ public class CreateSubmissionDto {
     private Date birthDate;
     private String email;
     private Gender gender;
-    private UUID driverId;
+    private String userId;
     private String transportModel;
     private String transportNumber;
     private TransportType transportType;

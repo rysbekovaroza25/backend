@@ -96,7 +96,7 @@ public class DefaultTripService implements TripService {
     public ReadTripDto create(CreateTripDto createTripDto) {
         Address departureAddress = addressService.getById(createTripDto.getDepartureAddressId());
         Address destinationAddress = addressService.getById(createTripDto.getDestinationAddressId());
-        User driver = userService.getById(createTripDto.getDriverId());
+        User user = userService.getById(createTripDto.getUserId());
 
         ZonedDateTime startTime = createTripDto.getStartTime().withZoneSameInstant(ZoneId.of(departureAddress.getCity().getTimeZone()));
         ZonedDateTime endTime = createTripDto.getEndTime().withZoneSameInstant(ZoneId.of(destinationAddress.getCity().getTimeZone()));
@@ -104,7 +104,7 @@ public class DefaultTripService implements TripService {
         Trip trip = new Trip();
         trip.setDepartureAddress(departureAddress);
         trip.setDestinationAddress(destinationAddress);
-        trip.setDriver(driver);
+        trip.setUser(user);
         trip.setStartTime(setTimeZone(startTime, "UTC"));
         trip.setEndTime(setTimeZone(endTime, "UTC"));
         trip.setDuration(calculateDuration(trip));

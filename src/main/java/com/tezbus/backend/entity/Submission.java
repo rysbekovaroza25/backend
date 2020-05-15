@@ -15,7 +15,7 @@ public class Submission {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id = UUID.randomUUID();
+    private String id = UUID.randomUUID().toString();
 
     @Column(name = "birth_date", nullable = false)
     private Date birthDate;
@@ -48,8 +48,8 @@ public class Submission {
     private SubmissionStatus status;
 
     @ManyToOne
-    @JoinColumn(name = "driver_id")
-    private User driver;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(name = "created_at", nullable = false)
     private ZonedDateTime createdAt;

@@ -6,8 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.UUID;
 
-public interface SubmissionRepository extends JpaRepository<Submission, UUID> {
+public interface SubmissionRepository extends JpaRepository<Submission, String> {
     List<Submission> findAllByStatus(SubmissionStatus status, Pageable pageable);
 }

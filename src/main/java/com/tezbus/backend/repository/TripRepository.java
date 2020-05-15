@@ -9,7 +9,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
-public interface TripRepository extends JpaRepository<Trip, UUID> {
+public interface TripRepository extends JpaRepository<Trip, String> {
     List<Trip> findByDepartureAddressInAndDestinationAddressInAndStartTimeGreaterThanEqualAndStartTimeLessThanEqual(
             List<Address> departuresAddresses,
             List<Address> destinationAddresses,

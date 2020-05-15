@@ -42,13 +42,13 @@ public class DefaultSubmissionService implements SubmissionService {
     @Override
     @Transactional
     public ReadSubmissionDto create(MultipartFile frontFile, MultipartFile backFile, CreateSubmissionDto createSubmissionDto) throws IOException {
-        User driver = userService.getById(createSubmissionDto.getDriverId());
+        User user = userService.getById(createSubmissionDto.getUserId());
 
         Submission submission = new Submission();
         submission.setBirthDate(createSubmissionDto.getBirthDate());
         submission.setEmail(createSubmissionDto.getEmail());
         submission.setGender(createSubmissionDto.getGender());
-        submission.setDriver(driver);
+        submission.setUser(user);
         submission.setTransportModel(createSubmissionDto.getTransportModel());
         submission.setTransportNumber(createSubmissionDto.getTransportNumber());
         submission.setTransportType(createSubmissionDto.getTransportType());

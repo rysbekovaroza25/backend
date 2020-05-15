@@ -14,7 +14,7 @@ import java.time.temporal.ChronoUnit;
 public class DefaultTripMapper implements TripMapper {
 
     @Autowired
-    private UserMapper driverMapper;
+    private UserMapper userMapper;
 
     @Autowired
     private AddressMapper addressMapper;
@@ -24,7 +24,7 @@ public class DefaultTripMapper implements TripMapper {
     public ReadTripDto toReadTripDto(Trip trip) {
         ReadTripDto readTripDto = new ReadTripDto();
         readTripDto.setId(trip.getId());
-        readTripDto.setDriver(driverMapper.toReadDriverDto(trip.getDriver()));
+        readTripDto.setReadUserProfileDto(userMapper.toReadUserProfileDto(trip.getUser()));
         readTripDto.setDepartureAddress(addressMapper.toReadAddressDto(trip.getDepartureAddress()));
         readTripDto.setDestinationAddress(addressMapper.toReadAddressDto(trip.getDestinationAddress()));
         readTripDto.setDuration(calculateDuration(trip));

@@ -13,7 +13,7 @@ public class SubmissionComment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id = UUID.randomUUID();
+    private String id = UUID.randomUUID().toString();
 
     @Column(name = "comment", nullable = false)
     private String comment;

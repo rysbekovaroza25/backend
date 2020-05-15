@@ -16,7 +16,7 @@ public class ReadSubmissionDto {
     private Date birthDate;
     private String email;
     private Gender gender;
-    private ReadUserDto readUserDto;
+    private ReadUserProfileDto readUserProfileDto;
     private String driverLicenseCardFrontUrl;
     private String driverLicenseCardBackUrl;
     private String transportModel;

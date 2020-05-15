@@ -13,7 +13,7 @@ public class SmsMessage {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID id = UUID.randomUUID();
+	private String id = UUID.randomUUID().toString();
 
 	@Column(name = "phone_number", nullable = false, length = 20)
 	private String phoneNumber;

@@ -13,7 +13,7 @@ public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id = UUID.randomUUID();
+    private String id = UUID.randomUUID().toString();
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -42,8 +42,8 @@ public class Item {
     private Boolean isActive;
 
     @ManyToOne
-    @JoinColumn(name = "assigned_driver_id")
-    private User assignedDriver;
+    @JoinColumn(name = "assigned_user_id")
+    private User assignedUser;
 
     @Column(name = "created_at", nullable = false)
     private ZonedDateTime createdAt;

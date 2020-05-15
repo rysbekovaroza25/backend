@@ -1,6 +1,5 @@
 package com.tezbus.backend.service;
 
-import com.tezbus.backend.dto.AssignByDriverDto;
 import com.tezbus.backend.dto.CreateItemDto;
 import com.tezbus.backend.dto.ReadItemDto;
 import com.tezbus.backend.entity.City;
@@ -52,7 +51,7 @@ public class DefaultItemService implements ItemService {
         item.setEmail(createItemDto.getEmail());
         item.setPhoneNumber(createItemDto.getPhoneNumber());
         item.setIsActive(true);
-        item.setAssignedDriver(null);
+        item.setAssignedUser(null);
         item.setCreatedAt(ZonedDateTime.now());
         item.setModifiedAt(ZonedDateTime.now());
 
@@ -74,13 +73,13 @@ public class DefaultItemService implements ItemService {
 
     @Override
     @Transactional
-    public ReadItemDto assignByDriver(AssignByDriverDto assignByDriverDto, UUID id) {
+    public ReadItemDto assignByUser(String userId, UUID id) {
         Optional<Item> optionalItem = itemRepository.findById(id);
         Item item = optionalItem.orElseThrow(() -> new EntityNotFoundException("There is no Item with id: " + id));
 
-        User driver = userService.getById(assignByDriverDto.getDriverId());
+        User user = userService.getById(userId);
 
-        item.setAssignedDriver(driver);
+        item.setAssignedUser(user);
         item.setModifiedAt(ZonedDateTime.now());
         item.setIsActive(false);
 

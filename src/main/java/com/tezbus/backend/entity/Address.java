@@ -18,7 +18,7 @@ public class Address {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	private UUID id = UUID.randomUUID();
+	private String id = UUID.randomUUID().toString();
 
 	@ManyToOne
 	@JoinColumn(name = "city_id")

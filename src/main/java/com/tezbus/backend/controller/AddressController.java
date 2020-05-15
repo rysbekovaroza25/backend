@@ -25,7 +25,7 @@ public class AddressController {
     }
 
     @PutMapping("/{id}")
-    public ReadAddressDto update(@PathVariable UUID id, @RequestBody @Validated UpdateAddressDto updateAddressDto){
+    public ReadAddressDto update(@PathVariable String id, @RequestBody @Validated UpdateAddressDto updateAddressDto){
         return addressService.update(id, updateAddressDto);
     }
 

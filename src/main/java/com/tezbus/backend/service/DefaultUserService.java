@@ -20,9 +20,6 @@ public class DefaultUserService implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
-    private SmsMessageSenderService smsMessageSenderService;
-
     @Override
     @Transactional(readOnly = true)
     public ReadUserProfileDto getUserProfile(String id) {

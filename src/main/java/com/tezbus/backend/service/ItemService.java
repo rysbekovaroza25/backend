@@ -1,6 +1,5 @@
 package com.tezbus.backend.service;
 
-import com.tezbus.backend.dto.AssignByDriverDto;
 import com.tezbus.backend.dto.CreateItemDto;
 import com.tezbus.backend.dto.ReadItemDto;
 import com.tezbus.backend.pageable.ItemSearchRequest;
@@ -13,5 +12,5 @@ public interface ItemService {
 
     Page<ReadItemDto> getAll(ItemSearchRequest itemSearchRequest, Pageable pageable);
 
-    ReadItemDto assignByDriver(AssignByDriverDto assignByDriverDto, UUID id);
+    ReadItemDto assignByUser(String userId, UUID id);
 }
