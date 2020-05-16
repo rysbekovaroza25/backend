@@ -15,11 +15,11 @@ public class Trip {
 
     @Id
     @Column(name = "id", unique = true, nullable = false)
-    private UUID id = UUID.randomUUID();
+    private String id = UUID.randomUUID().toString();
 
     @ManyToOne
-    @JoinColumn(name = "driver_id", nullable = false)
-    private Driver driver;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "departure_address_id", nullable = false)

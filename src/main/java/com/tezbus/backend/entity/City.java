@@ -17,7 +17,7 @@ public class City {
 
     @Id
     @Column(name = "id", unique = true, nullable = false)
-    private UUID id = UUID.randomUUID();
+    private String id = UUID.randomUUID().toString();
 
     @Column(name = "name", nullable = false)
     private String name;

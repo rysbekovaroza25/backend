@@ -6,10 +6,7 @@ import com.tezbus.backend.pageable.ContactMessagePageRequest;
 import com.tezbus.backend.service.ContactMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/contact_messages")
@@ -29,7 +26,7 @@ public class ContactMessageController {
     }
 
     @PutMapping("/{id}")
-    public ReadContactMessageDto setAsReviewed(@PathVariable UUID id) {
+    public ReadContactMessageDto setAsReviewed(@PathVariable String id) {
         return contactMessageService.setAsReviewed(id);
     }
 }

@@ -6,38 +6,37 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
-import java.util.UUID;
 
 @Data
 public class CreateTripDto {
 
-	@NotNull
-	private UUID driverId;
+    @NotNull
+    private String userId;
 
-	@NotNull
-	private UUID departureAddressId;
+    @NotNull
+    private String departureAddressId;
 
-	@NotNull
-	private UUID destinationAddressId;
+    @NotNull
+    private String destinationAddressId;
 
-	@NotNull
-	private ZonedDateTime endTime;
+    @NotNull
+    private ZonedDateTime endTime;
 
-	@NotNull
-	private ZonedDateTime startTime;
+    @NotNull
+    private ZonedDateTime startTime;
 
-	@NotNull
-	private int availablePassengersCount;
+    @NotNull
+    private int availablePassengersCount;
 
-	@NotNull
-	private int passengersCapacity;
+    @NotNull
+    private int passengersCapacity;
 
-	@NotNull
-	private BigDecimal price;
+    @NotNull
+    private BigDecimal price;
 
-	@NotNull
-	private String caption;
+    @NotNull
+    private String caption;
 
-	@NotNull
-	private TransportType transportType;
+    @NotNull
+    private TransportType transportType;
 }

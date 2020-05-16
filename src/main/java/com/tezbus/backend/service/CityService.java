@@ -7,21 +7,19 @@ import com.tezbus.backend.entity.City;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.UUID;
-
 public interface CityService {
     ReadCityDto create(CreateCityDto createCityDto);
 
-    ReadCityDto update(UUID id, UpdateCityDto updateCityDto);
+    ReadCityDto update(String id, UpdateCityDto updateCityDto);
 
-    City getById(UUID id);
+    City getById(String id);
 
-    ReadCityDto getCityById(UUID id);
+    ReadCityDto getCityById(String id);
 
     City getByName(String name);
 
     Page<ReadCityDto> getAll(Pageable pageable);
 
-    void delete(UUID id);
+    void delete(String id);
 
 }

@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/api/v1/trips")
 public class TripController {
@@ -24,13 +22,13 @@ public class TripController {
         return tripService.findTrips(tripSearchRequest, tripPageRequest);
     }
 
-    @GetMapping("/getByDriverId/{driverId}")
-    public Page<ReadTripDto> getAllByDriverId(@PathVariable UUID driverId, TripPageRequest tripPageRequest) {
-        return tripService.getAllByDriverId(driverId, tripPageRequest);
+    @GetMapping("/getByUserId/{userId}")
+    public Page<ReadTripDto> getAllByUserId(@PathVariable String userId, TripPageRequest tripPageRequest) {
+        return tripService.getAllByUserId(userId, tripPageRequest);
     }
 
     @GetMapping("/{id}")
-    public ReadTripDto getById(@PathVariable UUID id) {
+    public ReadTripDto getById(@PathVariable String id) {
         return tripService.getById(id);
     }
 
@@ -40,12 +38,12 @@ public class TripController {
     }
 
     @PutMapping("/{id}")
-    public ReadTripDto update(@PathVariable UUID id, @RequestBody UpdateTripDto updateTripDto) {
+    public ReadTripDto update(@PathVariable String id, @RequestBody UpdateTripDto updateTripDto) {
         return tripService.update(id, updateTripDto);
     }
 
     @DeleteMapping("/{id}")
-    public ReadTripDto delete(@PathVariable UUID id) {
+    public ReadTripDto delete(@PathVariable String id) {
         return tripService.delete(id);
     }
 }

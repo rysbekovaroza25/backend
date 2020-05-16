@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/api/v1/addresses")
 public class AddressController {
@@ -20,32 +18,32 @@ public class AddressController {
     private AddressService addressService;
 
     @PostMapping
-    public ReadAddressDto create(@RequestBody @Validated CreateAddressDto createAddressDto){
+    public ReadAddressDto create(@RequestBody @Validated CreateAddressDto createAddressDto) {
         return addressService.create(createAddressDto);
     }
 
     @PutMapping("/{id}")
-    public ReadAddressDto update(@PathVariable UUID id, @RequestBody @Validated UpdateAddressDto updateAddressDto){
+    public ReadAddressDto update(@PathVariable String id, @RequestBody @Validated UpdateAddressDto updateAddressDto) {
         return addressService.update(id, updateAddressDto);
     }
 
     @GetMapping("/{id}")
-    public ReadAddressDto getById(@PathVariable UUID id){
+    public ReadAddressDto getById(@PathVariable String id) {
         return addressService.getAddressById(id);
     }
 
     @GetMapping("/getByCity/{cityId}")
-    public Page<ReadAddressDto> getAllByCityId(@PathVariable UUID cityId){
+    public Page<ReadAddressDto> getAllByCityId(@PathVariable String cityId) {
         return addressService.getAddressesByCity(cityId);
     }
 
     @GetMapping
-    public Page<ReadAddressDto> getAll(AddressPageRequest addressPageRequest){
+    public Page<ReadAddressDto> getAll(AddressPageRequest addressPageRequest) {
         return addressService.getAll(addressPageRequest);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable UUID id){
+    public void delete(@PathVariable String id) {
         addressService.delete(id);
     }
 }

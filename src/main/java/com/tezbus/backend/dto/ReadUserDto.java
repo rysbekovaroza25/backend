@@ -1,21 +1,22 @@
 package com.tezbus.backend.dto;
 
+import com.tezbus.backend.enums.Gender;
+import com.tezbus.backend.enums.TransportType;
 import lombok.Data;
 
 import java.time.ZonedDateTime;
 
 @Data
-public class ReadItemDto {
+public class ReadUserDto {
     private String id;
     private String firstName;
     private String lastName;
-    private String description;
-    private ReadCityDto fromCity;
-    private ReadCityDto toCity;
+    private Gender gender;
     private String email;
     private String phoneNumber;
-    private Boolean isActive;
-    private ReadUserProfileDto assignedUserDto;
+    private TransportType transportType;
+    private String transportModel;
+    private String transportNumber;
     private ZonedDateTime createdAt;
     private ZonedDateTime modifiedAt;
 }

@@ -1,11 +1,10 @@
 package com.tezbus.backend.service;
 
-import com.tezbus.backend.dto.AssignByDriverDto;
 import com.tezbus.backend.dto.CreateItemDto;
 import com.tezbus.backend.dto.ReadItemDto;
 import com.tezbus.backend.entity.City;
-import com.tezbus.backend.entity.Driver;
 import com.tezbus.backend.entity.Item;
+import com.tezbus.backend.entity.User;
 import com.tezbus.backend.mapper.ItemMapper;
 import com.tezbus.backend.pageable.ItemSearchRequest;
 import com.tezbus.backend.repository.ItemRepository;
@@ -19,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import java.time.ZonedDateTime;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,7 +30,7 @@ public class DefaultItemService implements ItemService {
     private CityService cityService;
 
     @Autowired
-    private DriverService driverService;
+    private UserService userService;
 
     @Autowired
     private ItemMapper itemMapper;
@@ -52,7 +50,7 @@ public class DefaultItemService implements ItemService {
         item.setEmail(createItemDto.getEmail());
         item.setPhoneNumber(createItemDto.getPhoneNumber());
         item.setIsActive(true);
-        item.setAssignedDriver(null);
+        item.setAssignedUser(null);
         item.setCreatedAt(ZonedDateTime.now());
         item.setModifiedAt(ZonedDateTime.now());
 
@@ -74,13 +72,13 @@ public class DefaultItemService implements ItemService {
 
     @Override
     @Transactional
-    public ReadItemDto assignByDriver(AssignByDriverDto assignByDriverDto, UUID id) {
+    public ReadItemDto assignByUser(String userId, String id) {
         Optional<Item> optionalItem = itemRepository.findById(id);
         Item item = optionalItem.orElseThrow(() -> new EntityNotFoundException("There is no Item with id: " + id));
 
-        Driver driver = driverService.getById(assignByDriverDto.getDriverId());
+        User user = userService.getById(userId);
 
-        item.setAssignedDriver(driver);
+        item.setAssignedUser(user);
         item.setModifiedAt(ZonedDateTime.now());
         item.setIsActive(false);
 

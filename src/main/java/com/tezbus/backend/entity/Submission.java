@@ -1,7 +1,6 @@
 package com.tezbus.backend.entity;
 
 import com.tezbus.backend.enums.Gender;
-import com.tezbus.backend.enums.ContactMessageStatus;
 import com.tezbus.backend.enums.SubmissionStatus;
 import com.tezbus.backend.enums.TransportType;
 import lombok.Data;
@@ -15,8 +14,8 @@ import java.util.*;
 public class Submission {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id = UUID.randomUUID();
+    @Column(name = "id", unique = true, nullable = false)
+    private String id = UUID.randomUUID().toString();
 
     @Column(name = "birth_date", nullable = false)
     private Date birthDate;
@@ -49,8 +48,8 @@ public class Submission {
     private SubmissionStatus status;
 
     @ManyToOne
-    @JoinColumn(name = "driver_id")
-    private Driver driver;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(name = "created_at", nullable = false)
     private ZonedDateTime createdAt;

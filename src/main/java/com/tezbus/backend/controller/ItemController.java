@@ -1,6 +1,5 @@
 package com.tezbus.backend.controller;
 
-import com.tezbus.backend.dto.AssignByDriverDto;
 import com.tezbus.backend.dto.CreateItemDto;
 import com.tezbus.backend.dto.ReadItemDto;
 import com.tezbus.backend.pageable.ItemPageRequest;
@@ -10,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/items")
@@ -30,8 +27,8 @@ public class ItemController {
         return itemService.getAll(itemSearchRequest, itemPageRequest);
     }
 
-    @PutMapping("/{id}/assignByDriver")
-    public ReadItemDto assigneeByDriver(@RequestBody AssignByDriverDto assignByDriverDto, @PathVariable UUID id) {
-        return itemService.assignByDriver(assignByDriverDto, id);
+    @PutMapping("/{id}/assignByUser/{userId}")
+    public ReadItemDto assignByUser(@PathVariable String userId, @PathVariable String id) {
+        return itemService.assignByUser(userId, id);
     }
 }

@@ -2,8 +2,8 @@ package com.tezbus.backend.service;
 
 import com.tezbus.backend.dto.CreateSubmissionDto;
 import com.tezbus.backend.dto.ReadSubmissionDto;
-import com.tezbus.backend.entity.Driver;
 import com.tezbus.backend.entity.Submission;
+import com.tezbus.backend.entity.User;
 import com.tezbus.backend.enums.SubmissionStatus;
 import com.tezbus.backend.mapper.SubmissionMapper;
 import com.tezbus.backend.pageable.SubmissionSearchRequest;
@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,18 +36,18 @@ public class DefaultSubmissionService implements SubmissionService {
     private FileUploadService fileUploadService;
 
     @Autowired
-    private DriverService driverService;
+    private UserService userService;
 
     @Override
     @Transactional
     public ReadSubmissionDto create(MultipartFile frontFile, MultipartFile backFile, CreateSubmissionDto createSubmissionDto) throws IOException {
-        Driver driver = driverService.getById(createSubmissionDto.getDriverId());
+        User user = userService.getById(createSubmissionDto.getUserId());
 
         Submission submission = new Submission();
         submission.setBirthDate(createSubmissionDto.getBirthDate());
         submission.setEmail(createSubmissionDto.getEmail());
         submission.setGender(createSubmissionDto.getGender());
-        submission.setDriver(driver);
+        submission.setUser(user);
         submission.setTransportModel(createSubmissionDto.getTransportModel());
         submission.setTransportNumber(createSubmissionDto.getTransportNumber());
         submission.setTransportType(createSubmissionDto.getTransportType());
@@ -76,7 +75,7 @@ public class DefaultSubmissionService implements SubmissionService {
 
     @Override
     @Transactional
-    public ReadSubmissionDto approve(UUID id) {
+    public ReadSubmissionDto approve(String id) {
         Optional<Submission> optionalSubmission = submissionRepository.findById(id);
         Submission submission = optionalSubmission.orElseThrow(() -> new EntityNotFoundException("There is no Submission with id: " + id));
 
@@ -90,7 +89,7 @@ public class DefaultSubmissionService implements SubmissionService {
 
     @Override
     @Transactional
-    public ReadSubmissionDto decline(UUID id) {
+    public ReadSubmissionDto decline(String id) {
         Optional<Submission> optionalSubmission = submissionRepository.findById(id);
         Submission submission = optionalSubmission.orElseThrow(() -> new EntityNotFoundException("There is no Submission with id: " + id));
 

@@ -5,8 +5,8 @@ import com.tezbus.backend.dto.ReadTripDto;
 import com.tezbus.backend.dto.UpdateTripDto;
 import com.tezbus.backend.entity.Address;
 import com.tezbus.backend.entity.City;
-import com.tezbus.backend.entity.Driver;
 import com.tezbus.backend.entity.Trip;
+import com.tezbus.backend.entity.User;
 import com.tezbus.backend.mapper.TripMapper;
 import com.tezbus.backend.pageable.TripSearchRequest;
 import com.tezbus.backend.repository.TripRepository;
@@ -18,13 +18,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import java.time.*;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,7 +41,7 @@ public class DefaultTripService implements TripService {
     private AddressService addressService;
 
     @Autowired
-    private DriverService driverService;
+    private UserService userService;
 
     @Autowired
     private TripMapper tripMapper;
@@ -77,15 +78,17 @@ public class DefaultTripService implements TripService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<ReadTripDto> getAllByDriverId(UUID driverId, Pageable pageable) {
-        List<Trip> trips = tripRepository.findByDriverId(driverId, pageable);
+    public Page<ReadTripDto> getAllByUserId(String userId, Pageable pageable) {
+        User user = userService.getById(userId);
+
+        List<Trip> trips = tripRepository.findByUser(user, pageable);
 
         return new PageImpl<>(trips.stream().map(trip -> tripMapper.toReadTripDto(trip)).collect(Collectors.toList()));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public ReadTripDto getById(UUID id) {
+    public ReadTripDto getById(String id) {
         Optional<Trip> optionalTrip = tripRepository.findById(id);
         Trip trip = optionalTrip.orElseThrow(() -> new EntityNotFoundException("There is no Trip with id " + id));
 
@@ -97,7 +100,7 @@ public class DefaultTripService implements TripService {
     public ReadTripDto create(CreateTripDto createTripDto) {
         Address departureAddress = addressService.getById(createTripDto.getDepartureAddressId());
         Address destinationAddress = addressService.getById(createTripDto.getDestinationAddressId());
-        Driver driver = driverService.getById(createTripDto.getDriverId());
+        User user = userService.getById(createTripDto.getUserId());
 
         ZonedDateTime startTime = createTripDto.getStartTime().withZoneSameInstant(ZoneId.of(departureAddress.getCity().getTimeZone()));
         ZonedDateTime endTime = createTripDto.getEndTime().withZoneSameInstant(ZoneId.of(destinationAddress.getCity().getTimeZone()));
@@ -105,7 +108,7 @@ public class DefaultTripService implements TripService {
         Trip trip = new Trip();
         trip.setDepartureAddress(departureAddress);
         trip.setDestinationAddress(destinationAddress);
-        trip.setDriver(driver);
+        trip.setUser(user);
         trip.setStartTime(setTimeZone(startTime, "UTC"));
         trip.setEndTime(setTimeZone(endTime, "UTC"));
         trip.setDuration(calculateDuration(trip));
@@ -123,7 +126,7 @@ public class DefaultTripService implements TripService {
 
     @Override
     @Transactional
-    public ReadTripDto delete(UUID id) {
+    public ReadTripDto delete(String id) {
         Optional<Trip> optionalTrip = tripRepository.findById(id);
         Trip trip = optionalTrip.orElseThrow(() -> new EntityNotFoundException("There is no Trip with id " + id));
 
@@ -136,7 +139,7 @@ public class DefaultTripService implements TripService {
 
     @Override
     @Transactional
-    public ReadTripDto update(UUID id, UpdateTripDto updateTripDto) {
+    public ReadTripDto update(String id, UpdateTripDto updateTripDto) {
         Optional<Trip> optionalTrip = tripRepository.findById(id);
         Trip trip = optionalTrip.orElseThrow(() -> new EntityNotFoundException("There is no Trip with id " + id));
 

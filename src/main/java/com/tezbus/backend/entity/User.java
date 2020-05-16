@@ -11,15 +11,12 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "drivers")
-public class Driver {
+@Table(name = "users")
+public class User {
 
     @Id
     @Column(name = "id", unique = true, nullable = false)
-    private UUID id = UUID.randomUUID();
-
-    @Column(name = "user_id", nullable = false)
-    private UUID userId;
+    private String id = UUID.randomUUID().toString();
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -49,6 +46,9 @@ public class Driver {
     @Enumerated(EnumType.STRING)
     @Column(name = "transport_type")
     private TransportType transportType;
+
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @Column(name = "created_at", nullable = false)
     private ZonedDateTime createdAt;

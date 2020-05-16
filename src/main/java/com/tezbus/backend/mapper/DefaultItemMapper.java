@@ -13,12 +13,13 @@ public class DefaultItemMapper implements ItemMapper {
     private CityMapper cityMapper;
 
     @Autowired
-    private DriverMapper driverMapper;
+    private UserMapper userMapper;
 
     @Override
     @Transactional(readOnly = true)
     public ReadItemDto toReadItemDto(Item item) {
         ReadItemDto itemDto = new ReadItemDto();
+
         itemDto.setId(item.getId());
         itemDto.setFirstName(item.getFirstName());
         itemDto.setLastName(item.getLastName());
@@ -28,8 +29,8 @@ public class DefaultItemMapper implements ItemMapper {
         itemDto.setEmail(item.getEmail());
         itemDto.setPhoneNumber(item.getPhoneNumber());
         itemDto.setIsActive(item.getIsActive());
-        if (item.getAssignedDriver() != null) {
-            itemDto.setAssignedDriverDto(driverMapper.toReadDriverDto(item.getAssignedDriver()));
+        if (item.getAssignedUser() != null) {
+            itemDto.setAssignedUserDto(userMapper.toReadUserProfileDto(item.getAssignedUser()));
         }
         itemDto.setCreatedAt(item.getCreatedAt());
         itemDto.setModifiedAt(item.getModifiedAt());

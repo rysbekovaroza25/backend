@@ -9,22 +9,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface AddressService {
     ReadAddressDto create(CreateAddressDto createAddressDto);
 
-    ReadAddressDto update(UUID id, UpdateAddressDto updateAddressDto);
+    ReadAddressDto update(String id, UpdateAddressDto updateAddressDto);
 
-    Address getById(UUID id);
+    Address getById(String id);
 
-    ReadAddressDto getAddressById(UUID id);
+    ReadAddressDto getAddressById(String id);
 
     List<Address> getAllByCity(City city);
 
-    Page<ReadAddressDto> getAddressesByCity(UUID cityId);
+    Page<ReadAddressDto> getAddressesByCity(String cityId);
 
     Page<ReadAddressDto> getAll(Pageable pageable);
 
-    void delete(UUID id);
+    void delete(String id);
 }

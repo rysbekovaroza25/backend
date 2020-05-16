@@ -5,6 +5,7 @@ import com.tezbus.backend.dto.ReadSubmissionDto;
 import com.tezbus.backend.entity.Submission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,7 +16,7 @@ public class DefaultSubmissionMapper implements SubmissionMapper {
     private SubmissionCommentMapper submissionCommentMapper;
 
     @Autowired
-    private DriverMapper driverMapper;
+    private UserMapper userMapper;
 
     @Override
     public ReadSubmissionDto toReadSubmissionDto(Submission submission) {
@@ -26,7 +27,7 @@ public class DefaultSubmissionMapper implements SubmissionMapper {
 
         ReadSubmissionDto submissionDto = new ReadSubmissionDto();
         submissionDto.setId(submission.getId());
-        submissionDto.setReadDriverDto(driverMapper.toReadDriverDto(submission.getDriver()));
+        submissionDto.setReadUserProfileDto(userMapper.toReadUserProfileDto(submission.getUser()));
         submissionDto.setBirthDate(submission.getBirthDate());
         submissionDto.setEmail(submission.getEmail());
         submissionDto.setGender(submission.getGender());

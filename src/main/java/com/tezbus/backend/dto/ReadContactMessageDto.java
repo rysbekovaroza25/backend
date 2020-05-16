@@ -4,11 +4,10 @@ import com.tezbus.backend.enums.ContactMessageStatus;
 import lombok.Data;
 
 import java.time.ZonedDateTime;
-import java.util.UUID;
 
 @Data
 public class ReadContactMessageDto {
-    private UUID id;
+    private String id;
     private String name;
     private String email;
     private String description;

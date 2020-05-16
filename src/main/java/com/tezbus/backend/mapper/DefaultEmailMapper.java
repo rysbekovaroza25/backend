@@ -12,7 +12,7 @@ public class DefaultEmailMapper implements EmailMapper {
 	@Transactional(readOnly = true)
 	public ReadEmailDto toReadEmailDto(Email email) {
 		ReadEmailDto emailDto = new ReadEmailDto();
-		emailDto.setUuid(email.getId());
+		emailDto.setId(email.getId());
 		emailDto.setTitle(email.getTitle());
 		emailDto.setBody(email.getBody());
 		emailDto.setRecipientEmail(email.getRecipientEmail());
