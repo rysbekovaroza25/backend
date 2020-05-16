@@ -33,7 +33,7 @@ public class DefaultUserService implements UserService {
     @Transactional(readOnly = true)
     public User getById(String id) {
         Optional<User> optionalUser = userRepository.findById(id);
-        return optionalUser.orElseThrow(() -> new EntityNotFoundException("There is no Driver with name: " + id));
+        return optionalUser.orElseThrow(() -> new EntityNotFoundException("There is no User with name: " + id));
     }
 
 }

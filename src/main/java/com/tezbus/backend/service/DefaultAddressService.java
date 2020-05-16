@@ -18,7 +18,6 @@ import javax.persistence.EntityNotFoundException;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,7 +49,7 @@ public class DefaultAddressService implements AddressService {
 
     @Override
     @Transactional
-    public ReadAddressDto update(UUID id, UpdateAddressDto updateAddressDto) {
+    public ReadAddressDto update(String id, UpdateAddressDto updateAddressDto) {
         City city = cityService.getById(updateAddressDto.getCityId());
         Address address = getById(id);
         address.setStreetName(updateAddressDto.getStreetName());
@@ -64,7 +63,7 @@ public class DefaultAddressService implements AddressService {
 
     @Override
     @Transactional(readOnly = true)
-    public Address getById(UUID id) {
+    public Address getById(String id) {
         Optional<Address> optionalAddress = addressRepository.findById(id);
 
         return optionalAddress.orElseThrow(() -> new EntityNotFoundException("There is no Address with name: " + id));
@@ -72,7 +71,7 @@ public class DefaultAddressService implements AddressService {
 
     @Override
     @Transactional(readOnly = true)
-    public ReadAddressDto getAddressById(UUID id) {
+    public ReadAddressDto getAddressById(String id) {
         return addressMapper.toReadAddressDto(getById(id));
     }
 
@@ -84,7 +83,7 @@ public class DefaultAddressService implements AddressService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<ReadAddressDto> getAddressesByCity(UUID cityId) {
+    public Page<ReadAddressDto> getAddressesByCity(String cityId) {
         City city = cityService.getById(cityId);
         return new PageImpl<>(addressRepository.findByCity(city)
                 .stream()
@@ -105,7 +104,7 @@ public class DefaultAddressService implements AddressService {
 
     @Override
     @Transactional
-    public void delete(UUID id) {
+    public void delete(String id) {
         Address address = getById(id);
         address.setModifiedAt(ZonedDateTime.now());
         address.setDeleted(true);

@@ -3,8 +3,8 @@ package com.tezbus.backend.service;
 import com.tezbus.backend.dto.CreateItemDto;
 import com.tezbus.backend.dto.ReadItemDto;
 import com.tezbus.backend.entity.City;
-import com.tezbus.backend.entity.User;
 import com.tezbus.backend.entity.Item;
+import com.tezbus.backend.entity.User;
 import com.tezbus.backend.mapper.ItemMapper;
 import com.tezbus.backend.pageable.ItemSearchRequest;
 import com.tezbus.backend.repository.ItemRepository;
@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import java.time.ZonedDateTime;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -73,7 +72,7 @@ public class DefaultItemService implements ItemService {
 
     @Override
     @Transactional
-    public ReadItemDto assignByUser(String userId, UUID id) {
+    public ReadItemDto assignByUser(String userId, String id) {
         Optional<Item> optionalItem = itemRepository.findById(id);
         Item item = optionalItem.orElseThrow(() -> new EntityNotFoundException("There is no Item with id: " + id));
 

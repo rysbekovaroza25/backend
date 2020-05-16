@@ -5,19 +5,18 @@ import com.tezbus.backend.enums.TransportType;
 import lombok.Data;
 
 import java.time.ZonedDateTime;
-import java.util.UUID;
 
 @Data
 public class ReadUserDto {
-	private UUID id;
-	private String firstName;
-	private String lastName;
-	private Gender gender;
-	private String email;
-	private String phoneNumber;
-	private TransportType transportType;
-	private String transportModel;
-	private String transportNumber;
-	private ZonedDateTime createdAt;
-	private ZonedDateTime modifiedAt;
+    private String id;
+    private String firstName;
+    private String lastName;
+    private Gender gender;
+    private String email;
+    private String phoneNumber;
+    private TransportType transportType;
+    private String transportModel;
+    private String transportNumber;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime modifiedAt;
 }

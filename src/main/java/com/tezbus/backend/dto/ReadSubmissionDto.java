@@ -8,11 +8,10 @@ import lombok.Data;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 public class ReadSubmissionDto {
-    private UUID id;
+    private String id;
     private Date birthDate;
     private String email;
     private Gender gender;

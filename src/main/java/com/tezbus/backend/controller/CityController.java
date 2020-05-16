@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/api/v1/cities")
 public class CityController {
@@ -25,12 +23,12 @@ public class CityController {
     }
 
     @PutMapping("/{id}")
-    public ReadCityDto update(@PathVariable UUID id, @RequestBody @Validated UpdateCityDto updateCityDto) {
+    public ReadCityDto update(@PathVariable String id, @RequestBody @Validated UpdateCityDto updateCityDto) {
         return cityService.update(id, updateCityDto);
     }
 
     @GetMapping("/{id}")
-    public ReadCityDto getById(@PathVariable UUID id) {
+    public ReadCityDto getById(@PathVariable String id) {
         return cityService.getCityById(id);
     }
 
@@ -40,7 +38,7 @@ public class CityController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable UUID id) {
+    public void delete(@PathVariable String id) {
         cityService.delete(id);
     }
 }

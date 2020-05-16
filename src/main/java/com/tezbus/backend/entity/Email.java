@@ -11,7 +11,7 @@ import java.util.UUID;
 public class Email {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", unique = true, nullable = false)
 	private String id = UUID.randomUUID().toString();
 
 	@Column(name = "title", nullable = false)

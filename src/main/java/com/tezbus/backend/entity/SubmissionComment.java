@@ -12,7 +12,7 @@ import java.util.UUID;
 public class SubmissionComment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true, nullable = false)
     private String id = UUID.randomUUID().toString();
 
     @Column(name = "comment", nullable = false)

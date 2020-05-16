@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.UUID;
 
 public interface SubmissionService {
     ReadSubmissionDto create(
@@ -19,7 +18,7 @@ public interface SubmissionService {
 
     Page<ReadSubmissionDto> getAll(SubmissionSearchRequest submissionSearchRequest, Pageable pageable);
 
-    ReadSubmissionDto approve(UUID id);
+    ReadSubmissionDto approve(String id);
 
-    ReadSubmissionDto decline(UUID id);
+    ReadSubmissionDto decline(String id);
 }

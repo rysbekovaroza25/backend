@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/api/v1/items")
 public class ItemController {
@@ -30,7 +28,7 @@ public class ItemController {
     }
 
     @PutMapping("/{id}/assignByUser/{userId}")
-    public ReadItemDto assignByUser(@PathVariable String userId, @PathVariable UUID id) {
+    public ReadItemDto assignByUser(@PathVariable String userId, @PathVariable String id) {
         return itemService.assignByUser(userId, id);
     }
 }

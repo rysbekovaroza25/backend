@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/submissions")
@@ -43,12 +42,12 @@ public class SubmissionController {
     }
 
     @PutMapping("/{id}/approve")
-    public ReadSubmissionDto approve(@PathVariable UUID id) {
+    public ReadSubmissionDto approve(@PathVariable String id) {
         return submissionService.approve(id);
     }
 
     @PutMapping("/{id}/decline")
-    public ReadSubmissionDto decline(@PathVariable UUID id) {
+    public ReadSubmissionDto decline(@PathVariable String id) {
         return submissionService.decline(id);
     }
 

@@ -10,21 +10,21 @@ public class DefaultUserMapper implements UserMapper {
 
     @Override
     @Transactional(readOnly = true)
-    public ReadUserProfileDto toReadUserProfileDto(User driver) {
+    public ReadUserProfileDto toReadUserProfileDto(User user) {
         ReadUserProfileDto readUserProfileDto = new ReadUserProfileDto();
 
-        readUserProfileDto.setId(driver.getId());
-        readUserProfileDto.setFirstName(driver.getFirstName());
-        readUserProfileDto.setLastName(driver.getLastName());
-        readUserProfileDto.setBirthDate(driver.getBirthDate());
-        readUserProfileDto.setGender(driver.getGender());
-        readUserProfileDto.setPhoneNumber(driver.getPhoneNumber());
-        readUserProfileDto.setEmail(driver.getEmail());
-        readUserProfileDto.setTransportType(driver.getTransportType());
-        readUserProfileDto.setTransportModel(driver.getTransportModel());
-        readUserProfileDto.setTransportNumber(driver.getTransportNumber());
-        readUserProfileDto.setCreatedAt(driver.getCreatedAt());
-        readUserProfileDto.setModifiedAt(driver.getModifiedAt());
+        readUserProfileDto.setId(user.getId());
+        readUserProfileDto.setFirstName(user.getFirstName());
+        readUserProfileDto.setLastName(user.getLastName());
+        readUserProfileDto.setBirthDate(user.getBirthDate());
+        readUserProfileDto.setGender(user.getGender());
+        readUserProfileDto.setPhoneNumber(user.getPhoneNumber());
+        readUserProfileDto.setEmail(user.getEmail());
+        readUserProfileDto.setTransportType(user.getTransportType());
+        readUserProfileDto.setTransportModel(user.getTransportModel());
+        readUserProfileDto.setTransportNumber(user.getTransportNumber());
+        readUserProfileDto.setCreatedAt(user.getCreatedAt());
+        readUserProfileDto.setModifiedAt(user.getModifiedAt());
 
         return readUserProfileDto;
     }

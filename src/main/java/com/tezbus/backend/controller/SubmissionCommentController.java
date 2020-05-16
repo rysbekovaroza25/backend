@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/api/v1/submissions/{submissionId}/comments")
 public class SubmissionCommentController {
@@ -19,7 +17,7 @@ public class SubmissionCommentController {
 
     @PostMapping
     public ReadSubmissionCommentDto create(
-            @PathVariable UUID submissionId,
+            @PathVariable String submissionId,
             @RequestBody @Validated CreateSubmissionCommentDto createSubmissionCommentDto
     ) {
         return submissionCommentService.create(submissionId, createSubmissionCommentDto);
@@ -27,7 +25,7 @@ public class SubmissionCommentController {
 
     @PutMapping("/{id}")
     public ReadSubmissionCommentDto update(
-            @PathVariable UUID id,
+            @PathVariable String id,
             @RequestBody @Validated UpdateSubmissionCommentDto updateSubmissionCommentDto
     ) {
         return submissionCommentService.update(id, updateSubmissionCommentDto);

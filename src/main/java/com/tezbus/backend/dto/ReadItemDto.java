@@ -3,11 +3,10 @@ package com.tezbus.backend.dto;
 import lombok.Data;
 
 import java.time.ZonedDateTime;
-import java.util.UUID;
 
 @Data
 public class ReadItemDto {
-    private UUID id;
+    private String id;
     private String firstName;
     private String lastName;
     private String description;

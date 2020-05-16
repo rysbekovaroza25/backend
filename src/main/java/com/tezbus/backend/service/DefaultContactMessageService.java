@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import java.time.ZonedDateTime;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,7 +57,7 @@ public class DefaultContactMessageService implements ContactMessageService {
 
     @Override
     @Transactional
-    public ReadContactMessageDto setAsReviewed(UUID id) {
+    public ReadContactMessageDto setAsReviewed(String id) {
         Optional<ContactMessage> optionalContactMessage = contactMessageRepository.findById(id);
         ContactMessage contactMessage = optionalContactMessage.orElseThrow(
                 () -> new EntityNotFoundException("There is no Contact Message with id: " + id));

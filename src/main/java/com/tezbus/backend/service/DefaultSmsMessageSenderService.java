@@ -31,18 +31,18 @@ public class DefaultSmsMessageSenderService implements SmsMessageSenderService {
 
     @Override
     @Async
-    public ReadSmsMessageDto sendOnDriverRegistration(User driver) {
-        String content = "Здравствуйте " + driver.getFirstName() + ", \n\n" +
+    public ReadSmsMessageDto sendOnUserRegistration(User user) {
+        String content = "Здравствуйте " + user.getFirstName() + ", \n\n" +
                 "Вы успешно зарегистрировались в качестве водителя на платформе Tezbus! Теперь вы можете " +
                 "выкладывать ваши поездки, назначать цены на них и находить попутчиков. " +
                 "Войдите в свой профиль: www.tezbus.com";
 
-        send(content, driver.getPhoneNumber());
+        send(content, user.getPhoneNumber());
 
         CreateSmsMessageDto createSmsMessageDto = new CreateSmsMessageDto();
         createSmsMessageDto.setContent(content);
         createSmsMessageDto.setNotificationType(NotificationType.REGISTRATION);
-        createSmsMessageDto.setPhoneNumber(driver.getPhoneNumber());
+        createSmsMessageDto.setPhoneNumber(user.getPhoneNumber());
 
         return smsMessageService.create(createSmsMessageDto);
     }

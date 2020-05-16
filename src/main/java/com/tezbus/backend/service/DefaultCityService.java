@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import java.time.ZonedDateTime;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,7 +46,7 @@ public class DefaultCityService implements CityService {
 
     @Override
     @Transactional
-    public ReadCityDto update(UUID id, UpdateCityDto updateCityDto) {
+    public ReadCityDto update(String id, UpdateCityDto updateCityDto) {
         City city = getById(id);
         city.setName(updateCityDto.getName());
         city.setCountry(updateCityDto.getCountry());
@@ -63,7 +62,7 @@ public class DefaultCityService implements CityService {
 
     @Override
     @Transactional(readOnly = true)
-    public City getById(UUID id) {
+    public City getById(String id) {
         Optional<City> optionalCity = cityRepository.findById(id);
 
         return optionalCity.orElseThrow(() -> new EntityNotFoundException("There is no City with id: " + id));
@@ -71,7 +70,7 @@ public class DefaultCityService implements CityService {
 
     @Override
     @Transactional(readOnly = true)
-    public ReadCityDto getCityById(UUID id) {
+    public ReadCityDto getCityById(String id) {
         return cityMapper.toReadCityDto(getById(id));
     }
 
@@ -95,7 +94,7 @@ public class DefaultCityService implements CityService {
 
     @Override
     @Transactional
-    public void delete(UUID id) {
+    public void delete(String id) {
         City city = getById(id);
         city.setModifiedAt(ZonedDateTime.now());
         city.setDeleted(true);

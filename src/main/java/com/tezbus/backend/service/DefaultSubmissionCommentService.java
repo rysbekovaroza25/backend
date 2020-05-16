@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import java.time.ZonedDateTime;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class DefaultSubmissionCommentService implements SubmissionCommentService {
@@ -31,9 +30,9 @@ public class DefaultSubmissionCommentService implements SubmissionCommentService
 
     @Override
     @Transactional
-    public ReadSubmissionCommentDto create(UUID submissionId, CreateSubmissionCommentDto createSubmissionCommentDto) {
-        Optional<Submission> optionalSubmission = submissionRepository.findById(submissionId);
-        Submission submission = optionalSubmission.orElseThrow(() -> new EntityNotFoundException("There is no Submission with id: " + submissionId));
+    public ReadSubmissionCommentDto create(String id, CreateSubmissionCommentDto createSubmissionCommentDto) {
+        Optional<Submission> optionalSubmission = submissionRepository.findById(id);
+        Submission submission = optionalSubmission.orElseThrow(() -> new EntityNotFoundException("There is no Submission with id: " + id));
 
         SubmissionComment submissionComment = new SubmissionComment();
         submissionComment.setComment(createSubmissionCommentDto.getComment());
@@ -48,7 +47,7 @@ public class DefaultSubmissionCommentService implements SubmissionCommentService
 
     @Override
     @Transactional
-    public ReadSubmissionCommentDto update(UUID id, UpdateSubmissionCommentDto updateSubmissionCommentDto) {
+    public ReadSubmissionCommentDto update(String id, UpdateSubmissionCommentDto updateSubmissionCommentDto) {
         Optional<SubmissionComment> optionalSubmissionComment = submissionCommentRepository.findById(id);
         SubmissionComment submissionComment = optionalSubmissionComment.orElseThrow(() -> new EntityNotFoundException("There is no Submission Comment with id: " + id));
 
