@@ -9,7 +9,7 @@ import java.time.ZonedDateTime;
 @Data
 public class ReadTripDto {
     private String id;
-    private ReadUserProfileDto readUserProfileDto;
+    private ReadUserProfileDto user;
     private ReadAddressDto departureAddress;
     private ReadAddressDto destinationAddress;
     private ZonedDateTime startTime;

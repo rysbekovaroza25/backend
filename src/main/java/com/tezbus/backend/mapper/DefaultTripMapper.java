@@ -24,7 +24,7 @@ public class DefaultTripMapper implements TripMapper {
     public ReadTripDto toReadTripDto(Trip trip) {
         ReadTripDto readTripDto = new ReadTripDto();
         readTripDto.setId(trip.getId());
-        readTripDto.setReadUserProfileDto(userMapper.toReadUserProfileDto(trip.getUser()));
+        readTripDto.setUser(userMapper.toReadUserProfileDto(trip.getUser()));
         readTripDto.setDepartureAddress(addressMapper.toReadAddressDto(trip.getDepartureAddress()));
         readTripDto.setDestinationAddress(addressMapper.toReadAddressDto(trip.getDestinationAddress()));
         readTripDto.setDuration(calculateDuration(trip));
