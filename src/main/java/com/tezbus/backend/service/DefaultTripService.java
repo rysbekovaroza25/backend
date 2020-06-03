@@ -3,6 +3,7 @@ package com.tezbus.backend.service;
 import com.tezbus.backend.dto.CreateTripDto;
 import com.tezbus.backend.dto.GenerateTripDto;
 import com.tezbus.backend.dto.ReadTripDto;
+import com.tezbus.backend.dto.SendPassengerDetailsDto;
 import com.tezbus.backend.dto.UpdateTripDto;
 import com.tezbus.backend.entity.Address;
 import com.tezbus.backend.entity.City;
@@ -47,6 +48,9 @@ public class DefaultTripService implements TripService {
 
     @Autowired
     private TripMapper tripMapper;
+
+    @Autowired
+    private SmsMessageSenderService smsMessageSenderService;
 
     @Override
     @Transactional(readOnly = true)
@@ -124,6 +128,14 @@ public class DefaultTripService implements TripService {
         Trip savedTrip = tripRepository.save(trip);
 
         return tripMapper.toReadTripDto(savedTrip);
+    }
+
+    @Override
+    public void sendPassengerDetails(String id, SendPassengerDetailsDto sendPassengerDetailsDto) {
+        User user = userService.getById(sendPassengerDetailsDto.getUserId());
+        Trip trip = getEntityById(id);
+
+        smsMessageSenderService.sendOnPassengerReservation(trip, sendPassengerDetailsDto, user);
     }
 
     @Override
@@ -217,6 +229,11 @@ public class DefaultTripService implements TripService {
         dates[1] = cityTimeZone.withZoneSameInstant(ZoneId.of("UTC")).plusDays(1);
 
         return dates;
+    }
+
+    private Trip getEntityById(String id) {
+        Optional<Trip> optionalTrip = tripRepository.findById(id);
+        return optionalTrip.orElseThrow(() -> new EntityNotFoundException("There is no Trip with id " + id));
     }
 
 }

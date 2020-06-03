@@ -10,6 +10,8 @@ import com.amazonaws.services.sns.model.PublishRequest;
 import com.amazonaws.services.sns.model.PublishResult;
 import com.tezbus.backend.dto.CreateSmsMessageDto;
 import com.tezbus.backend.dto.ReadSmsMessageDto;
+import com.tezbus.backend.dto.SendPassengerDetailsDto;
+import com.tezbus.backend.entity.Trip;
 import com.tezbus.backend.entity.User;
 import com.tezbus.backend.enums.NotificationType;
 import com.tezbus.backend.property.AmazonSnsProperty;
@@ -17,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,6 +46,46 @@ public class DefaultSmsMessageSenderService implements SmsMessageSenderService {
         createSmsMessageDto.setContent(content);
         createSmsMessageDto.setNotificationType(NotificationType.REGISTRATION);
         createSmsMessageDto.setPhoneNumber(user.getPhoneNumber());
+
+        return smsMessageService.create(createSmsMessageDto);
+    }
+
+    @Override
+    @Async
+    public ReadSmsMessageDto sendOnPassengerReservation(Trip trip, SendPassengerDetailsDto sendPassengerDetailsDto, User user) {
+        String content = "Здравствуйте, "+ user.getFirstName() + " "+ user.getLastName() +"!\n" +
+                "\n" +
+                "Новое бронирование.\n" +
+                "\n" +
+                "* * *\n" +
+                "\n" +
+                "Вы получили запрос на поездку:\n" +
+                "\n" +
+                "" + trip.getDepartureAddress().getCity().getName() +", "+trip.getDepartureAddress().getStreetName()+" -\n" +
+                "" + trip.getDestinationAddress().getCity().getName() +", "+trip.getDestinationAddress().getStreetName() +"\n" +
+                "\n" +
+                ""+ DateTimeFormatter.ofPattern("dd/MM/yyyy - hh:mm").format(trip.getStartTime())+"\n" +
+                "\n" +
+                "От: "+ sendPassengerDetailsDto.getPassengerName() +"\n" +
+                "Номер телефона: "+ sendPassengerDetailsDto.getPassengerPhone() +"\n" +
+                "Желаемое количество мест: "+ sendPassengerDetailsDto.getDesiredSeatCount() +"\n" +
+                "\n" +
+                "Ваши дальнейшие действия:\n" +
+                "\n" +
+                "- Созвониться с пассажиром,\n" +
+                "- Договориться о месте встречи,\n" +
+                "- Отправиться в путь!\n" +
+                "\n" +
+                "С наилучшими пожеланиями,\n" +
+                "Команда Tezbus\n";
+
+        send(content, user.getPhoneNumber());
+
+        CreateSmsMessageDto createSmsMessageDto = new CreateSmsMessageDto();
+        createSmsMessageDto.setContent(content);
+        createSmsMessageDto.setNotificationType(NotificationType.RESERVATION);
+        createSmsMessageDto.setPhoneNumber(user.getPhoneNumber());
+        createSmsMessageDto.setTripId(trip.getId());
 
         return smsMessageService.create(createSmsMessageDto);
     }
