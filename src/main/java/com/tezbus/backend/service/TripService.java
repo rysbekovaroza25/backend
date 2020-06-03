@@ -1,6 +1,7 @@
 package com.tezbus.backend.service;
 
 import com.tezbus.backend.dto.CreateTripDto;
+import com.tezbus.backend.dto.GenerateTripDto;
 import com.tezbus.backend.dto.ReadTripDto;
 import com.tezbus.backend.dto.UpdateTripDto;
 import com.tezbus.backend.pageable.TripSearchRequest;
@@ -19,4 +20,6 @@ public interface TripService {
     ReadTripDto update(String id, UpdateTripDto updateTripDto);
 
     ReadTripDto delete(String id);
+
+    Page<ReadTripDto> generateTrip(GenerateTripDto generateTripDto);
 }

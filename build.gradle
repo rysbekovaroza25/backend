@@ -29,7 +29,7 @@ dependencies {
 	implementation 'com.amazonaws:aws-java-sdk-ses:1.11.288'
 	compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.11.163'
 
-	runtimeOnly 'org.postgresql:postgresql'
+	implementation 'org.postgresql:postgresql'
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'

@@ -1,6 +1,7 @@
 package com.tezbus.backend.service;
 
 import com.tezbus.backend.dto.CreateTripDto;
+import com.tezbus.backend.dto.GenerateTripDto;
 import com.tezbus.backend.dto.ReadTripDto;
 import com.tezbus.backend.dto.UpdateTripDto;
 import com.tezbus.backend.entity.Address;
@@ -23,6 +24,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -164,6 +166,39 @@ public class DefaultTripService implements TripService {
         Trip updatedTrip = tripRepository.save(trip);
 
         return tripMapper.toReadTripDto(updatedTrip);
+    }
+
+    @Override
+    public Page<ReadTripDto> generateTrip(GenerateTripDto generateTripDto) {
+        int days = generateTripDto.getDays();
+        int hours = generateTripDto.getHours();
+        int minutes = generateTripDto.getMinutes();
+
+        List<ReadTripDto> generatedTrips = new ArrayList<>();
+        LocalDate tempDate = generateTripDto.getGenerationStartDate();
+        while (!tempDate.toString().equals(generateTripDto.getGenerationEndDate().plusDays(1).toString())) {
+            if (generateTripDto.getDaysOfWeek().contains(tempDate.getDayOfWeek().toString())) {
+                Address departureAddress = addressService.getById(generateTripDto.getDepartureAddressId());
+                Address destinationAddress = addressService.getById(generateTripDto.getDestinationAddressId());
+                ZonedDateTime startTime = ZonedDateTime.of(tempDate, generateTripDto.getStartTime(), ZoneId.of(departureAddress.getCity().getTimeZone()));
+                ZonedDateTime endTime = ZonedDateTime.of(tempDate.plusDays(days), generateTripDto.getStartTime().plusHours(hours).plusMinutes(minutes), ZoneId.of(destinationAddress.getCity().getTimeZone()));
+
+                CreateTripDto trip = new CreateTripDto();
+                trip.setUserId(generateTripDto.getUserId());
+                trip.setDepartureAddressId(generateTripDto.getDepartureAddressId());
+                trip.setDestinationAddressId(generateTripDto.getDestinationAddressId());
+                trip.setStartTime(startTime);
+                trip.setEndTime(endTime);
+                trip.setAvailablePassengersCount(generateTripDto.getAvailablePassengersCount());
+                trip.setPassengersCapacity(generateTripDto.getPassengersCapacity());
+                trip.setPrice(generateTripDto.getPrice());
+                trip.setCaption(generateTripDto.getCaption());
+                trip.setTransportType(generateTripDto.getTransportType());
+                generatedTrips.add(create(trip));
+            }
+            tempDate = tempDate.plusDays(1);
+        }
+        return new PageImpl<>(generatedTrips);
     }
 
     private Long calculateDuration(Trip trip) {

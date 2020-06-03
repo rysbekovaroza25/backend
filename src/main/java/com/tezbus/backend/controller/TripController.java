@@ -1,6 +1,7 @@
 package com.tezbus.backend.controller;
 
 import com.tezbus.backend.dto.CreateTripDto;
+import com.tezbus.backend.dto.GenerateTripDto;
 import com.tezbus.backend.dto.ReadTripDto;
 import com.tezbus.backend.dto.UpdateTripDto;
 import com.tezbus.backend.pageable.TripPageRequest;
@@ -9,6 +10,8 @@ import com.tezbus.backend.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/trips")
@@ -45,5 +48,10 @@ public class TripController {
     @DeleteMapping("/{id}")
     public ReadTripDto delete(@PathVariable String id) {
         return tripService.delete(id);
+    }
+
+    @PostMapping("/{id}")
+    public Page<ReadTripDto> generate(@PathVariable String id, @RequestBody @Valid GenerateTripDto generateTripDto){
+        return tripService.generateTrip(generateTripDto);
     }
 }
