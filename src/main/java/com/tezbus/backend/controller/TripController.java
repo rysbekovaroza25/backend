@@ -2,6 +2,7 @@ package com.tezbus.backend.controller;
 
 import com.tezbus.backend.dto.CreateTripDto;
 import com.tezbus.backend.dto.ReadTripDto;
+import com.tezbus.backend.dto.SendPassengerDetailsDto;
 import com.tezbus.backend.dto.UpdateTripDto;
 import com.tezbus.backend.pageable.TripPageRequest;
 import com.tezbus.backend.pageable.TripSearchRequest;
@@ -40,6 +41,11 @@ public class TripController {
     @PutMapping("/{id}")
     public ReadTripDto update(@PathVariable String id, @RequestBody UpdateTripDto updateTripDto) {
         return tripService.update(id, updateTripDto);
+    }
+
+    @PostMapping("/{id}")
+    public void sendPassengerDetails(@PathVariable String id, @RequestBody SendPassengerDetailsDto sendPassengerDetailsDto) {
+        tripService.sendPassengerDetails(id, sendPassengerDetailsDto);
     }
 
     @DeleteMapping("/{id}")
