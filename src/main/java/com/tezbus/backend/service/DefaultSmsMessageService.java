@@ -28,7 +28,7 @@ public class DefaultSmsMessageService implements SmsMessageService {
         smsMessage.setPhoneNumber(createSmsMessageDto.getPhoneNumber());
         smsMessage.setContent(createSmsMessageDto.getContent());
         smsMessage.setTripId(createSmsMessageDto.getTripId());
-        smsMessage.setNotificationType(NotificationType.REGISTRATION);
+        smsMessage.setNotificationType(createSmsMessageDto.getNotificationType());
         smsMessage.setCreatedAt(ZonedDateTime.now());
         smsMessage.setModifiedAt(ZonedDateTime.now());
 
