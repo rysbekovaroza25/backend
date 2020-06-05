@@ -41,8 +41,8 @@ public class TripController {
         return tripService.update(id, updateTripDto);
     }
 
-    @PostMapping("/{id}")
-    public void sendPassengerDetails(@PathVariable String id, @RequestBody @Validated SendPassengerDetailsDto sendPassengerDetailsDto) {
+    @PutMapping("/{id}/sendPassengerDetails")
+    public void sendPassengerDetails(@PathVariable String id, @RequestBody SendPassengerDetailsDto sendPassengerDetailsDto) {
         tripService.sendPassengerDetails(id, sendPassengerDetailsDto);
     }
 
