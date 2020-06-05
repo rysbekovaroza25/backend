@@ -42,7 +42,7 @@ public class TripController {
     }
 
     @PutMapping("/{id}/sendPassengerDetails")
-    public void sendPassengerDetails(@PathVariable String id, @RequestBody SendPassengerDetailsDto sendPassengerDetailsDto) {
+    public void sendPassengerDetails(@PathVariable String id, @RequestBody @Validated SendPassengerDetailsDto sendPassengerDetailsDto) {
         tripService.sendPassengerDetails(id, sendPassengerDetailsDto);
     }
 
