@@ -24,17 +24,15 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-
 	implementation 'com.amazonaws:aws-java-sdk-sns:1.11.319'
 	implementation 'com.amazonaws:aws-java-sdk-ses:1.11.288'
 	compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.11.163'
-
 	implementation 'org.postgresql:postgresql'
-
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-
 	compile "org.flywaydb:flyway-core:6.3.3"
+	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
+	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
 }
 
 dependencyManagement {
